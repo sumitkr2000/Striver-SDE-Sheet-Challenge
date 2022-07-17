@@ -1,0 +1,73 @@
+long long mergeArray(long long *arr, long long int s, long long int e) {
+
+    long long inv = 0;
+    long long int mid = s + (e-s)/2;
+
+    long long int len1 = mid-s+1;
+    long long int len2 = e-mid;
+
+    long long int *first = new long long int[len1];
+    long long int *second = new long long int[len2];
+
+    //copying values
+    long long int mainArrayIndex = s;
+    for(long long int i = 0; i<len1; i++) {
+        first[i] = arr[mainArrayIndex++];
+    }
+    
+    for(long long int i = 0; i<len2; i++) {
+        second[i] = arr[mainArrayIndex++];
+    }
+
+    //merge two sorted arrays
+    long long int index1 = 0;
+    long long int index2 = 0;
+    mainArrayIndex = s;
+
+    while(index1 < len1 && index2 < len2) {
+
+          if(first[index1] < second[index2]) {
+              arr[mainArrayIndex++] = first[index1++];
+          }
+          else{
+              inv += len1 - index1;
+              arr[mainArrayIndex++] = second[index2++];
+          }
+    }
+    while(index1<len1) {
+        arr[mainArrayIndex++] = first[index1++];
+    }
+    while(index2<len2) {
+        arr[mainArrayIndex++] = second[index2++];
+    }
+
+    return inv;
+
+    delete[] first;
+	delete[] second;
+}
+
+void mergeSort(long long *arr, long long int s, long long int e,  long long &inv) {
+    //base case
+    if(s >= e) {
+		return;
+	}
+    long long int mid = s + (e-s)/2;
+   
+	//recursive call
+    //for left part
+    inv += mergeSort(arr, s, mid);
+
+    //for right part
+    inv += mergeSort(arr, mid+1, e);
+    inv += mergeArray(arr, s, e);
+	
+    return;
+}
+
+long long getInversions(long long *arr, int n){
+    
+	long long ans = 0;
+    mergeSort(arr, 0, n-1, ans);
+	return ans;
+}
