@@ -1,33 +1,18 @@
-#include<unordered_map>
-#include<climits>
-int uniqueSubstrings(string input)
-{
-    int n = input.length();
-    if(n == 0) {
-       return 0;
-     }
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
         
-        unordered_map<char,int> mp;
-        int i = 0;
-        int j = 0;
-        int m = INT_MIN;
+        unordered_map<char, int> mp;
+        int i = 0, j = 0, ans = 0;
         
-        while(j<n){
-            mp[input[j]]++;
-            if(mp.size() == (j-i+1)){
-                m = max(m,(j-i+1));
-                j++;
+        while(j < s.size()){
+            if(mp.find(s[j]) != mp.end()) {
+                i = max(i, mp[s[j]] + 1);
             }
-            else if(mp.size() < (j-i+1)){
-                while(mp.size() < (j-i+1)){
-                    mp[input[i]]--;
-                    if(mp[input[i]] == 0){
-                        mp.erase(input[i]);
-                    }
-                    i++;
-                }
-                j++;
-            }  
+            ans = max(ans, (j-i+1));
+            mp[s[j]] = j;
+            j++;
         }
-        return m;
-}
+        return ans;
+    }
+};
