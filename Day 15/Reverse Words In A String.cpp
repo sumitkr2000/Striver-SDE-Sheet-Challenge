@@ -1,38 +1,29 @@
-#include<vector>
-string reverseString(string str)
-{
-    vector<string> container;
-    string temp = "";
-    for(int i = 0; i < str.length(); i++) {
-
-        if(temp.empty() && str[i] == ' ') {
-            continue;
+class Solution {
+public:
+    string reverseWords(string s) {
+        
+        int n = s.size();
+        int i = 0;
+        string ans;
+        
+        while(i < n) {
+            while(i < n && s[i] == ' ') {
+                i++;
+            }
+            if(i >= n) {
+                break;
+            }
+            
+            int j = i+1;
+            while(j < n && s[j] != ' ') {
+                j++;
+            }
+            
+            string temp = s.substr(i, j-i);
+            ans.empty() ? ans = temp : ans = temp + " " + ans;
+            
+            i = j+1;
         }
-
-        if(i == str.length()-1 && str[i] != ' ') {
-            temp.push_back(str[str.length()-1]);
-            container.push_back(temp);
-        }
-
-        if(!temp.empty() && str[i] == ' ') {
-            container.push_back(temp);
-            temp.clear();
-        }
-
-        if(str[i] != ' ') {
-            temp.push_back(str[i]);
-        }
+        return ans;
     }
-
-
-    string ans = "";  
-
-    for(int i = container.size()-1; i >= 0; i--) {
-        ans += container[i];
-        if(i != 0) {
-            ans.push_back(' ');
-        }
-
-    }        
-    return ans;
-}
+};
