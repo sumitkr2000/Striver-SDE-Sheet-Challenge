@@ -1,33 +1,52 @@
-void solve(BinaryTreeNode<int>* root, vector<int> &inorder) {
-    //base case
-    if(root == NULL) {
-        return;
-    }
-
-    solve(root -> left, inorder);
-    inorder.push_back(root -> data);
-    solve(root -> right, inorder);
-}
-
-bool pairSumBst(BinaryTreeNode<int> *root, int k)
-{
-    vector<int> inorder;
+class BSTIterator {
+public:
+    stack<TreeNode*> st;
+    bool isPrev;
     
-    solve(root, inorder);
-
-    int i = 0;
-    int j = inorder.size()-1;
-
-    while(i < j) {
-        if(inorder[i] + inorder[j] == k) {
-            return true;
-        }
-        else if(inorder[i] + inorder[j] > k) {
-            j--;
-        }
-        else {
-            i++;
+    BSTIterator(TreeNode* root, bool flag) {
+        isPrev = flag;
+        TreeNode* curr = root;
+        
+        while(curr != NULL) {
+            st.push(curr);
+            curr = isPrev ? curr -> right : curr -> left;
         }
     }
-    return false;
-}
+    
+    int next() {
+        TreeNode* top = st.top();
+        st.pop();
+        TreeNode* temp = isPrev ? top -> left : top -> right;
+        
+        while(temp != NULL) {
+            st.push(temp);
+            temp = isPrev ? temp -> right : temp -> left;
+        }
+        
+        return top -> val;
+    } 
+};
+
+class Solution {
+public:
+    bool findTarget(TreeNode* root, int k) {
+        
+        BSTIterator low(root, false);
+        BSTIterator high(root, true);
+        
+        int i = low.next(), j = high.next();
+        
+        while(i < j) {
+            if(i + j == k) {
+                return true;
+            }
+            else if(i + j < k) {
+                i = low.next();
+            }
+            else {
+                j = high.next();
+            }
+        }
+        return false;
+    }
+};
