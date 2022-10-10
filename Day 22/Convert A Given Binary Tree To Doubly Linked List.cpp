@@ -1,19 +1,27 @@
+void solve(BinaryTreeNode<int>* root, BinaryTreeNode<int>* &head, BinaryTreeNode<int>* &prev) {
+    //base case
+    if(root == NULL) {
+        return;
+    }
+    
+    solve(root -> left, head, prev);
+    
+    if(head == NULL) {
+        head = root;
+    }
+    else {
+        root -> left = prev;
+        prev -> right = root;
+    }
+    prev = root;
+    solve(root -> right, head, prev);
+}
+
 BinaryTreeNode<int>* BTtoDLL(BinaryTreeNode<int>* root) {
     
-    BinaryTreeNode<int>* curr = root;
-        
-    while(curr != NULL) {
-
-        if(curr -> left != NULL) {
-            BinaryTreeNode<int>* pred = curr -> left;
-
-            while(pred -> right != NULL) {
-                pred = pred -> right;
-            }
-
-            pred -> right = curr -> right;
-            curr -> right = curr -> left;
-        }
-        curr = curr -> right;
-    }
+    BinaryTreeNode<int>* head = NULL;    
+    BinaryTreeNode<int>* prev = NULL;
+    
+    solve(root, head, prev);
+    return head;
 }
