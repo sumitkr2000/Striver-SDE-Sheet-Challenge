@@ -1,94 +1,86 @@
-class TrieNode{
-    public:
+class TrieNode {
+ public:
     TrieNode* children[26];
-    char data;
     bool isTerminal;
     
-    TrieNode(char ch) {
-        data = ch;
-        
+    TrieNode() {
         for(int i = 0; i < 26; i++) {
             children[i] = NULL;
-        }     
-        isTerminal = false;
-    }  
+        }
+        isTerminal = 0;
+    }
 };
 
 class Trie {
-    TrieNode* root;
 public:
+    TrieNode* root;
+    
     Trie() {
-        root = new TrieNode('\0');
+        root = new TrieNode();
     }
     
-    void insertWord(TrieNode* root, string word) {
-        //base case
-        if(word.length() == 0) {
-            root->isTerminal = true;
+    void insertWord(int i, string word, TrieNode* root) {
+        
+        if(i == word.size()) {
+            root -> isTerminal = 1;
             return;
         }
         
-        int index = word[0] - 'a';
+        int ind = word[i] - 'a';
         TrieNode* child;
         
-        if(root -> children[index] != NULL) {
-            child = root -> children[index];
+        if(root -> children[ind] == NULL) {
+            child = new TrieNode();
+            root -> children[ind] = child;
         }
-        else{
-            child = new TrieNode(word[0]);
-            root -> children[index] = child;
+        else {
+            child = root -> children[ind];
         }
         
-        insertWord(child, word.substr(1));
+        insertWord(i+1, word, child);
     }
     
     void insert(string word) {
-         insertWord(root, word);
-    }
-    
-    bool searchWord(TrieNode* root, string word) {
-        //base case
-        if(word.length() == 0) {
-            return root->isTerminal;
-        }
-        
-        int index = word[0] - 'a';
-        TrieNode* child;
-        
-        if(root -> children[index] != NULL) {
-            child = root -> children[index];
-        }
-        else{
-            return false;
-        }
-        
-        return searchWord(child, word.substr(1));
+        insertWord(0, word, root);
     }
     
     bool search(string word) {
-         return searchWord(root, word);
-    }
-
-    bool searchPrefix(TrieNode* root, string word) {
-        //base case
-        if(word.length() == 0) {
-            return true;
-        }
         
-        int index = word[0] - 'a';
-        TrieNode* child;
+        TrieNode* curr = root;
         
-        if(root -> children[index] != NULL) {
-            child = root -> children[index];
+        for(int i = 0; i < word.size(); i++) {
+            int ind = word[i] - 'a';
+            if(curr -> children[ind]) {
+                curr = curr -> children[ind];
+            }
+            else {
+                return false;
+            }
         }
-        else{
-            return false;
-        }
-        
-        return searchPrefix(child, word.substr(1));
+        return curr -> isTerminal;
     }
     
     bool startsWith(string prefix) {
-         return searchPrefix(root, prefix);
+        
+        TrieNode* curr = root;
+        
+        for(int i = 0; i < prefix.size(); i++) {
+            int ind = prefix[i] - 'a';
+            if(curr -> children[ind]) {
+                curr = curr -> children[ind];
+            }            
+            else {
+                return false;
+            }
+        }
+        return true;
     }
 };
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * bool param_2 = obj->search(word);
+ * bool param_3 = obj->startsWith(prefix);
+ */
