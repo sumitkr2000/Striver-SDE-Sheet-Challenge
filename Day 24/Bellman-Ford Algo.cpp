@@ -1,5 +1,5 @@
 class Solution {
-  public:
+public:
     vector<int> bellman_ford(int V, vector<vector<int>>& edges, int S) {
         
         vector<int> dist(V, 1e8);
