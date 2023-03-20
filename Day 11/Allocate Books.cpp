@@ -1,46 +1,53 @@
-bool ispossible(int n, int m, long long int mid,vector<int> time) {
+class Solution {
+private:
+   bool isPossible(vector<int> A, int n, int B, int mid) {
 
-   int daycount = 1;
-   long long int timecount = 0;
+       int student = 1, pageCount = 0;
 
-   for(int i = 0; i < m; i++) {
-       if(timecount + time[i] <= mid) {
-           timecount += time[i];
-       }
-       else {
-           daycount++;
-           if(daycount > n || time[i] > mid) {
-               return false;
+       for(int i = 0; i < n; i++) {
+           if(pageCount + A[i] <= mid) {
+               pageCount += A[i];
            }
-           timecount = time[i];
+           else {
+               student += 1;
+               pageCount = A[i];
+               if(A[i] > mid || student > B) {
+                   return false;
+               }
+           }
        }
-   }
-   return true;
-}
-
-long long ayushGivesNinjatest(int n, int m, vector<int> time) 
-{	
-   long long int s = 0;
-   long long int sum = 0;
-   long long int ans = -1;
-
-   for(int i = 0; i < m; i++) {
-       sum += time[i];
+       return true; 
    }
 
-   long long int e = sum;
-   long long int mid = s+(e-s)/2;
+public:
+   int books(vector<int> &A, int B) {
 
-   while(s <= e) {
+       int n = A.size();
 
-   if(ispossible(n, m, mid, time)) {
-       ans = mid;
-       e = mid-1;
+       if(B > n) {
+           return -1;
+       }
+
+       int s = A[0];
+       int e = 0;
+
+       for(int i = 0; i < n; i++) {
+           e += A[i];
+       }
+
+       int ans = -1;
+
+       while(s <= e) {
+           int mid = s + (e - s)/2;
+
+           if(isPossible(A, n, B, mid)) {
+               ans = mid;
+               e = mid-1;
+           }
+           else {
+               s = mid+1;
+           }
+       }
+       return ans;
    }
-   else {
-       s = mid+1;
-   }
-       mid = s+(e-s)/2;
-   }
-   return ans;
-}
+};
