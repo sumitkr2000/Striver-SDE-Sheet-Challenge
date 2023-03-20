@@ -1,9 +1,19 @@
-int uniqueElement(vector<int> arr, int n)
-{
-	int ans = 0;
+class Solution {
+public:
+    int singleNonDuplicate(vector<int>& nums) {
         
-        for(int i = 0; i < n; i++) {
-            ans = ans^arr[i];
+        int s = 0, e = nums.size() - 2;
+        
+        while(s <= e) {
+            int mid = s + (e-s)/2;
+            
+            if(nums[mid] == nums[mid^1]) {
+                s = mid + 1;
+            }
+            else {
+                e = mid - 1;
+            }
         }
-        return ans;
-}
+        return nums[s];
+    }
+};
