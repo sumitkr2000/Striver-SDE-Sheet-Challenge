@@ -1,30 +1,28 @@
-pair<bool,int> solve(BinaryTreeNode<int>* root) {
-    //base case
-    if(root == NULL) {
-        pair<bool,int> p = make_pair(true,0);
-        return p;
-    }
-
-    pair<bool,int> left = solve(root -> left);
-    pair<bool,int> right = solve(root -> right);
-
-    bool leftAns = left.first;
-    bool rightAns = right.first;
-    bool diff = abs(left.second - right.second) <= 1;
-
-    pair<bool,int> ans;
-    ans.second = max(left.second, right.second) + 1;
-
-    if(leftAns && rightAns && diff) {
-        ans.first = true;
-    }
-    else {
-        ans.first = false;
-    }
-    return ans;
-}
-
-bool isBalancedBT(BinaryTreeNode<int>* root) {
+class Solution {
+private:
+    int solve(TreeNode* root) {
     
-    return solve(root).first;
-}
+        if(root == NULL) {
+            return 0;
+        }
+        
+        int left = solve(root -> left);
+        int right = solve(root -> right);
+        
+        if(left == -1 || right == -1) {
+            return -1;
+        }
+        
+        if(abs(left - right) > 1) {
+            return -1;
+        }
+        
+        return 1 + max(left, right);
+    }
+    
+public:
+    bool isBalanced(TreeNode* root) {
+        
+        return solve(root) != -1;
+    }
+};
