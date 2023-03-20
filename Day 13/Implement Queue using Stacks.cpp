@@ -3,7 +3,6 @@ public:
     stack<int> st1, st2;
     
     MyQueue() {
-        
     }
     
     void push(int x) {
