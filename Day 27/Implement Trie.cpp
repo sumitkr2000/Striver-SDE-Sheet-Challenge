@@ -19,37 +19,28 @@ public:
         root = new TrieNode();
     }
     
-    void insertWord(int i, string word, TrieNode* root) {
-        
-        if(i == word.size()) {
-            root -> isTerminal = 1;
-            return;
-        }
-        
-        int ind = word[i] - 'a';
-        TrieNode* child;
-        
-        if(root -> children[ind] == NULL) {
-            child = new TrieNode();
-            root -> children[ind] = child;
-        }
-        else {
-            child = root -> children[ind];
-        }
-        
-        insertWord(i+1, word, child);
-    }
-    
     void insert(string word) {
-        insertWord(0, word, root);
+        
+        TrieNode* curr = root;
+        
+        for(auto &it: word) {
+            int ind = it - 'a';
+            
+            if(!curr -> children[ind]) {
+                curr -> children[ind] = new TrieNode();
+            }
+            curr = curr -> children[ind];
+        }
+        curr -> isTerminal = true;
     }
     
     bool search(string word) {
         
         TrieNode* curr = root;
         
-        for(int i = 0; i < word.size(); i++) {
-            int ind = word[i] - 'a';
+        for(auto &it: word) {
+            int ind = it - 'a';
+            
             if(curr -> children[ind]) {
                 curr = curr -> children[ind];
             }
@@ -64,8 +55,9 @@ public:
         
         TrieNode* curr = root;
         
-        for(int i = 0; i < prefix.size(); i++) {
-            int ind = prefix[i] - 'a';
+        for(auto &it: prefix) {
+            int ind = it - 'a';
+            
             if(curr -> children[ind]) {
                 curr = curr -> children[ind];
             }            
@@ -76,11 +68,3 @@ public:
         return true;
     }
 };
-
-/**
- * Your Trie object will be instantiated and called as such:
- * Trie* obj = new Trie();
- * obj->insert(word);
- * bool param_2 = obj->search(word);
- * bool param_3 = obj->startsWith(prefix);
- */
