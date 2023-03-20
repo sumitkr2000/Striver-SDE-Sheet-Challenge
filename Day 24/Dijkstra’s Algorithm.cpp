@@ -1,10 +1,6 @@
-class Solution
-{
-	public:
-	//Function to find the shortest distance of all the vertices
-    //from the source vertex S.
-    vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
-    {
+class Solution {
+public:
+    vector <int> dijkstra(int V, vector<vector<int>> adj[], int S) {
         
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
         vector<int> ans(V, INT_MAX);
