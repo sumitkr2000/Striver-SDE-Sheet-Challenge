@@ -1,32 +1,31 @@
-pair<int,int> predecessorSuccessor(BinaryTreeNode<int>* root, int key)
-{
-    int pred = -1;
-    int succ = -1;
-    
-    BinaryTreeNode<int>* temp = root;
-    while(temp -> data != key) {
-        if(key > temp -> data) {
-            pred = temp -> data;
-            temp = temp -> right;
+class Solution {
+public:
+    vector<int> predecessorSuccessor(TreeNode* root, int key) {
+
+        int pre = -1, suc = -1;
+        TreeNode* curr = root;
+        
+        while(curr != NULL) {
+            if(curr -> key < key) {
+                pre = curr;
+                curr = curr -> right;
+            }
+            else {
+                curr = curr -> left;
+            }
         }
-        else{
-            succ = temp -> data;
-            temp = temp -> left;
+
+        curr = root;
+        while(curr != NULL) {
+            if(curr -> key > key) {
+                suc = curr;
+                curr = curr -> left;
+            }
+            else {
+                curr = curr -> right;
+            }
         }
+
+        return {pre, suc};
     }
-    
-    BinaryTreeNode<int>* leftt = temp -> left;
-    while(leftt != NULL) {
-        pred = leftt -> data;
-        leftt = leftt -> right;
-    }
-    
-    BinaryTreeNode<int>* rightt = temp -> right;
-    while(rightt != NULL) {
-        succ = rightt -> data;
-        rightt = rightt -> left;
-    }
-    
-    pair<int, int> ans = make_pair(pred, succ);
-    return ans;
-}
+};
