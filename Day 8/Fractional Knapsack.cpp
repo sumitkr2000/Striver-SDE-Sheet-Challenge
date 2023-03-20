@@ -1,6 +1,5 @@
-class Solution
-{
-    private:
+class Solution {
+private:
     static bool comp(Item a, Item b) {
         
         double vpw1 = double(a.value)/double(a.weight);
@@ -8,11 +7,10 @@ class Solution
         
         return vpw1 > vpw2;
     }
-
-    public:
-    // Function to get the maximum total value in the knapsack.
-    double fractionalKnapsack(int W, Item arr[], int n)
-    {
+    
+public:
+    double fractionalKnapsack(int W, Item arr[], int n) {
+        
         sort(arr, arr+n, comp);
         double ans = 0;
         
@@ -28,4 +26,5 @@ class Solution
         }
         return ans;
     }
+        
 };
