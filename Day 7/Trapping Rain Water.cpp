@@ -4,7 +4,27 @@ public:
         
         int n = height.size();
         
-        //Approach 1: Uisng two pointers
+        //Approach 1: Uisng extra space
+        vector<int> leftMax(n), rightMax(n);
+        leftMax[0] = height[0];
+        rightMax[n-1] = height[n-1];
+        
+        for(int i = 1; i < n; i++) {
+            leftMax[i] = max(height[i], leftMax[i-1]);
+        }
+        
+        for(int i = n-2; i >= 0; i--) {
+            rightMax[i] = max(height[i], rightMax[i+1]);
+        }
+        
+        int ans = 0;
+        for(int i = 0; i < n; i++) {
+            ans += (min(leftMax[i], rightMax[i]) - height[i]);
+        }
+        return ans;
+        
+        
+        /* //Approach 2: Uisng two pointers
         int i = 0, j = n-1;
         int leftMax = 0, rightMax = 0;
         int ans = 0;
@@ -28,28 +48,6 @@ public:
                 }
                 j--;
             }
-        }
-        return ans;
-        
-        /*//Approach 2: Uisng extra space
-        vector<int> leftMax(n);
-        leftMax[0] = height[0];
-        
-        for(int i = 1; i < n; i++) {
-            leftMax[i] = max(height[i], leftMax[i-1]);
-        }
-        
-        vector<int> rightMax(n);
-        rightMax[n-1] = height[n-1];
-        
-        for(int i = n-2; i >= 0; i--) {
-            rightMax[i] = max(height[i], rightMax[i+1]);
-        }
-        
-        int ans = 0;
-        
-        for(int i = 0; i < n; i++) {
-            ans += (min(leftMax[i], rightMax[i]) - height[i]);
         }
         return ans;
         */
