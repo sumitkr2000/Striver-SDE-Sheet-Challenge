@@ -1,12 +1,12 @@
 class Solution {
 private:
-    bool isLeaf(TreeNode<int>* root) {
+    bool isLeaf(TreeNode* root) {
         return (root -> left == NULL && root -> right == NULL);
     }
 
-    void traverseLeft(TreeNode<int>* root, vector<int> &ans) {
+    void traverseLeft(TreeNode* root, vector<int> &ans) {
 
-        TreeNode<int>* curr = root;
+        TreeNode* curr = root;
         
         while(curr != NULL) {
             if(!isLeaf(curr)) {
@@ -21,7 +21,7 @@ private:
         }
     }
 
-    void traverseLeaf(TreeNode<int>* root, vector<int> &ans) {
+    void traverseLeaf(TreeNode* root, vector<int> &ans) {
 
         if(isLeaf(root)) {
             ans.push_back(root -> data);
@@ -36,9 +36,9 @@ private:
         }
     }
 
-    void traverseRight(TreeNode<int>* root, vector<int> &ans) {
+    void traverseRight(TreeNode* root, vector<int> &ans) {
 
-        TreeNode<int>* curr = root;
+        TreeNode* curr = root;
         vector<int> temp;
         
         while(curr != NULL) {
@@ -58,7 +58,7 @@ private:
         }
     }
 
-    vector<int> traverseBoundary(TreeNode<int>* root){
+    vector<int> traverseBoundary(TreeNode* root){
 
         vector<int> ans;
         if(root == NULL) {
