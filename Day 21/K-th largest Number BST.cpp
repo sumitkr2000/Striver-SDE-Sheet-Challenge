@@ -1,26 +1,26 @@
 class Solution {
 private:
-    void solve(TreeNode* root, int &k, int &ans) {
-
+    void solve(Node* root, int &K, int &ans) {
+     
         if(root == NULL) {
             return;
         }
         
-        solve(root -> left, k, ans);
-        k--;
-        if(k == 0) {
-            ans = root -> val;
+        solve(root -> right, K, ans);
+        K--;
+        if(K == 0) {
+            ans = root -> data;
             return;
         }
         
-        solve(root -> right, k, ans);
+        solve(root -> left, K, ans);
     }
     
 public:
-    int kthSmallest(TreeNode* root, int k) {
+    int kthLargest(Node *root, int K) {
         
         int ans;
-        solve(root, k, ans);
+        solve(root, K, ans);
         return ans;
     }
 };
