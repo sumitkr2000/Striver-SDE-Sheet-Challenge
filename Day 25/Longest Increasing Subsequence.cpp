@@ -2,7 +2,7 @@ class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
         
-        /*//Approach: 1
+        // Approach: 1
         int n = nums.size();
         vector<int> dp(n, 1);
         int ans = 1;
@@ -16,9 +16,8 @@ public:
             ans = max(ans, dp[i]);
         }
         return ans;
-        */
         
-        //Approach: 2(Binary Search)
+        /*// Approach: 2(Binary Search)
         vector<int> temp;
         temp.push_back(nums[0]);
         
@@ -32,12 +31,11 @@ public:
             }
         }
         return temp.size();
+        */
         
         /*// For printing LIS
-        vector<int> dp(n, 1);
-        vector<int> cont(n);
-        int ans = 1;
-        int lastIndex = 0;
+        vector<int> dp(n, 1), cont(n);
+        int ans = 1, lastIndex = 0;
         
         for(int i = 0; i < n; i++) {
             cont[i] = i;
