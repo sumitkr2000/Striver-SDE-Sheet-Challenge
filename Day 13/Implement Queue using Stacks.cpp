@@ -33,6 +33,6 @@ public:
     }
     
     bool empty() {
-        return (st1.size() | st2.size()) == 0;
+        return (st1.empty() && st2.empty());
     }
 };
