@@ -1,8 +1,7 @@
-class Solution
-{
+class Solution {
 private:
     void solve(int i, int sum, vector<int> &arr, int N, vector<int> &ans) {
-        //base case
+        
         if(i == N) {
             ans.push_back(sum);
             return;
@@ -13,8 +12,8 @@ private:
     }
 
 public:
-    vector<int> subsetSums(vector<int> arr, int N)
-    {
+    vector<int> subsetSums(vector<int> arr, int N) {
+        
         vector<int> ans;
         solve(0, 0, arr, N, ans);
         return ans;
