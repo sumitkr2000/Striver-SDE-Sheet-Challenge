@@ -17,7 +17,6 @@ public:
             if(temp -> right != NULL) {
                 st.push(temp -> right);
             }
-            
             if(temp -> left != NULL) {
                 st.push(temp -> left);
             }
