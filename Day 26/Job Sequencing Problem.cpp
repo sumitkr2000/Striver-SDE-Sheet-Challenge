@@ -1,14 +1,11 @@
-class Solution 
-{
-    private:
+class Solution {
+private:
     bool static comp(Job a, Job b) {
         return a.profit > b.profit;
     }
     
-    public:
-    //Function to find the maximum profit and the number of jobs done.
-    vector<int> JobScheduling(Job arr[], int n) 
-    { 
+public:
+    vector<int> JobScheduling(Job arr[], int n) { 
         
         sort(arr, arr+n, comp);
         
