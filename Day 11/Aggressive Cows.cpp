@@ -3,6 +3,7 @@ private:
     bool isPossible(vector<int> &stalls, int n, int k, int mid) {
         
         int cnt = 1, last = stalls[0];
+	    
         for(int i = 1; i < n; i++) {
             if(stalls[i] - last >= mid) {
                 cnt++;
