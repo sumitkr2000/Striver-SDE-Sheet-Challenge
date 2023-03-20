@@ -1,49 +1,37 @@
-Node<int>* solve(Node<int>* first, Node<int>* second) {
-	
-	if(first -> next == NULL) {
-		first -> next = second;
-		return first;
-	}
-	
-	Node<int>* prev = first;
-	Node<int>* curr1 = prev -> next;
-	Node<int>* temp = second;
-	Node<int>* curr2 = temp -> next;
-	
-	while(temp != NULL && curr1 != NULL) {
-		if(temp -> data >= prev -> data && temp -> data <= curr1 -> data) {
-			prev -> next = temp;
-			curr2 = temp -> next;
-			temp -> next = curr1;
-			prev = temp;
-			temp = curr2;
-		}
-		else{
-			prev = curr1;
-			curr1 = curr1 -> next;
-			
-			if(curr1 == NULL) {
-				prev -> next = temp;
-				return first;
-			}
-		}
-	}
-	return first;
-}
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        
+        if(!list1) {
+            return list2;
+        }
+        if(!list2) {
+            return list1;
+        }
+        
+        ListNode* dummy = new ListNode(-1);
+        ListNode* temp = dummy;
 
-Node<int>* sortTwoLists(Node<int>* first, Node<int>* second)
-{
-	if(first == NULL) {
-		return second;
+        while(list1 && list2) {
+            if(list1 -> val < list2 -> val) {
+                temp -> next = list1;
+                temp = list1;
+                list1 = list1 -> next;
+            }
+            else {
+                temp -> next = list2;
+                temp = list2;
+                list2 = list2 -> next;
+            }
+        }
+
+        if(list1) {
+            temp -> next = list1;
+        }
+        else {
+            temp -> next = list2;
+        }
+
+        return dummy -> next;
     }
-	if(second == NULL) {
-		return first;
-	}
-	
-	if(first -> data <= second -> data) {
-		return solve(first, second);
-	}
-	else{
-		return solve(second, first);
-	}
-}
+};
