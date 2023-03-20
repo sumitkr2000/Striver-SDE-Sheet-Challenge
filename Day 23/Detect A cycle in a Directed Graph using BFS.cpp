@@ -1,45 +1,45 @@
-#include<bits/stdc++.h>
-int detectCycleInDirectedGraph(int n, vector<pair<int,int>> &edges) {
-  
-    unordered_map<int, list<int>> adjList;    
-    for(int i = 0; i < edges.size(); i++) {        
-        int u = edges[i].first;
-        int v = edges[i].second;
-        
-        adjList[u].push_back(v);
-    }
-    unordered_map<int, int> indegree;
+class Solution {
+public:
+  int detectCycleInDirectedGraph(int n, vector<pair<int,int>> &edges) {
+
+      vector<vector<int>> adjList(n+1);
     
-    for(auto i: adjList) {       
-        for(auto j: i.second) {
-            indegree[j]++;
-        }
-    }
+      for(auto &it: edges) {
+          adjList[it[0]].push_back(it[1]);
+      }
     
-    queue<int> q;
-    for(int i = 1; i <= n; i++) {
-        if(indegree[i] == 0) {
-            q.push(i);
-        }
-    }
+      vector<int> indegree(n+1, 0);
     
-    int cnt = 0;
+      for(auto it: adjList) {       
+          for(auto node: it.second) {
+              indegree[node]++;
+          }
+      }
+
+      queue<int> q;
     
-    while(!q.empty()) {
-        int front = q.front();
-        q.pop();
-        
-        cnt++;
-        
-        for(auto i: adjList[front]) {
-            indegree[i]--;
-            if(indegree[i] == 0) {
-                q.push(i);
-            }
-        }
-    }
-    if(cnt == n) {
-        return false;
-    }
-    return true;
-}
+      for(int i = 1; i <= n; i++) {
+          if(indegree[i] == 0) {
+              q.push(i);
+          }
+      }
+
+      int cnt = 0;
+    
+      while(!q.empty()) {
+          int front = q.front();
+          q.pop();
+
+          cnt++;
+
+          for(auto it: adjList[front]) {
+              indegree[it]--;
+              if(indegree[it] == 0) {
+                  q.push(it);
+              }
+          }
+      }
+      
+      return cnt != n;
+  }
+};
