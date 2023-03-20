@@ -1,30 +1,32 @@
-void sortedInsert(stack<int> &stack, int num) {
-	
-	//base case
-	if(stack.empty() || stack.top() < num) {
-		stack.push(num);
-		return;
-	}
-	
-	int n = stack.top();
-	stack.pop();
-	
-	sortedInsert(stack, num);
-	
-	stack.push(n);
-}
+class Solution {
+private:
+	void sortedInsert(stack<int> &st, int num) {
 
-void sortStack(stack<int> &stack)
-{
-	//base case
-	if(stack.empty()) {
+	    if(st.empty() || st.top() < num) {
+		st.push(num);
 		return;
+	    }
+
+	    int n = st.top();
+	    st.pop();
+
+	    sortedInsert(st, num);
+
+	    st.push(n);
 	}
-	
-	int num = stack.top();
-	stack.pop();
-	
-	sortStack(stack);
-	
-	sortedInsert(stack, num);
-}
+
+public:
+	void sortStack(stack<int> &st) {
+
+	    if(st.empty()) {
+		return;
+	    }
+
+	    int num = st.top();
+	    st.pop();
+
+	    sortStack(st);
+
+	    sortedInsert(st, num);
+	}
+};
