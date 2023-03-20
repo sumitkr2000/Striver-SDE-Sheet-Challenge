@@ -1,33 +1,33 @@
-#include<bits/stdc++.h>
-TreeNode<int>* solve(vector<int>& in, vector<int>& post, int &postIndex, int startIndex, int endIndex, int n, map<int,int> &mp) {
-    //base case
-    if(postIndex < 0 || startIndex > endIndex) {
-        return NULL;
+class Solution {
+private:
+    TreeNode* solve(int &i, int s, int e, vector<int> &in, vector<int> &post, unordered_map<int, int> &mp) {
+
+        if(i < 0 || s > e) {
+            return NULL;
+        }
+        
+        int pos = mp[post[i]];
+        TreeNode* root = new TreeNode(post[i--]);
+        
+        root -> right = solve(i, pos+1, e, in, post, mp);
+        root -> left = solve(i, s, pos-1, in, post, mp);
+        
+        return root;
     }
-
-    int element = post[postIndex--];
-    TreeNode<int>* root = new TreeNode<int>(element);
-    int position = mp[element];
-
-    root -> right = solve(in, post, postIndex, position+1, endIndex, n, mp);
-    root -> left = solve(in, post, postIndex, startIndex, position-1, n, mp);
-
-    return root;
-}
-
-TreeNode<int>* getTreeFromPostorderAndInorder(vector<int>& postOrder, vector<int>& inOrder) 
-{
-	int n = inOrder.size();
-    int postIndex = n-1;
-    int startIndex = 0;
-    int endIndex = n-1;
-    map<int, int> mp;
-
-    for(int i = 0; i < n; i++) {
-        mp[inOrder[i]] = i;
+    
+public:
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        
+        int n = inorder.size();
+        
+        unordered_map<int, int> mp;
+        for(int i = 0; i < n; i++) {
+            mp[inorder[i]] = i;
+        }
+        
+        int i = n-1;
+        
+        TreeNode* root = solve(i, 0, n-1, inorder, postorder, mp);
+        return root;
     }
-
-    TreeNode<int>* ans = solve(inOrder, postOrder, postIndex, startIndex, endIndex, n, mp);
-
-    return ans;
-}
+};
