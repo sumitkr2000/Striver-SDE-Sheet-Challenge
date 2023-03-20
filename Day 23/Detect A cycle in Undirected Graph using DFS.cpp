@@ -1,40 +1,41 @@
-#include<bits/stdc++.h>
-bool dfsCycleDetection(int node, int parent, unordered_map<int, list<int>> &adjList, unordered_map<int, bool> &visited) {
-    
-    visited[node] = true;
-    
-    for(auto it: adjList[node]) {
-        if(!visited[it]) {
-            if(dfsCycleDetection(it, node, adjList, visited)) {
-                return true;
-            }            
-        }
-        else if(it != parent) {
-            return true;
-        }
-    }
-    return false;
-}
+class Solution {
+private:
+    bool dfsCycleDetection(int node, int parent, vector<vector<int>> &adjList, vector<bool> &vis) {
 
-string cycleDetection (vector<vector<int>>& edges, int n, int m)
-{
-    unordered_map<int, list<int>> adjList;    
-    for(int i = 0; i < m; i++) {        
-        int u = edges[i][0];
-        int v = edges[i][1];
-        
-        adjList[u].push_back(v);
-        adjList[v].push_back(u);
-    }
-    
-    unordered_map<int, bool> visited;    
-    for(int i = 1; i <= n; i++) {
-        if(!visited[i]) {
-            bool ans = dfsCycleDetection(i, -1, adjList, visited);
-            if(ans == true) {
-                return "Yes";
+        vis[node] = true;
+
+        for(auto it: adjList[node]) {
+            if(!vis[it]) {
+                if(dfsCycleDetection(it, node, adjList, vis)) {
+                    return true;
+                }            
+            }
+            else if(it != parent) {
+                return true;
             }
         }
+        return false;
     }
-    return "No";
-}
+
+public:
+    bool cycleDetection (vector<vector<int>>& edges, int n, int m) {
+
+        vector<vector<<int>> adjList(n+1);
+        
+        for(auto &it: edges) {
+            adjList[it[0]].push_back(it[1]);
+            adjList[it[1]].push_back(it[0]);
+        }
+
+        vector<bool> vis(n+1, 0);
+        
+        for(int i = 1; i <= n; i++) {
+            if(!vis[i]) {
+                if(dfsCycleDetection(i, -1, adjList, vis)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+};
