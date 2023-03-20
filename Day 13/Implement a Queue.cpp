@@ -1,15 +1,15 @@
 class Queue {
+private:
     int *arr;
     int frontt;
     int rear;
+    
 public:
     Queue() {
         arr = new int[10000];
         frontt = 0;
         rear = 0;
     }
-
-    /*----------------- Public Functions of Queue -----------------*/
 
     bool isEmpty() {
         return frontt == rear;
@@ -29,8 +29,7 @@ public:
             arr[frontt] = -1;
             frontt++;
             if(frontt == rear) {
-                frontt = 0;
-                rear = 0;
+                frontt = rear = 0;
             }
             return temp;
         }
@@ -40,7 +39,7 @@ public:
         if(frontt == rear) {
             return -1;
         }
-        else{
+        else {
             return arr[frontt];
         }
     }
