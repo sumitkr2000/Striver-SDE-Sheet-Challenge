@@ -1,31 +1,25 @@
-#include <bits/stdc++.h> 
-int lengthOfLongestConsecutiveSequence(vector<int> &arr, int n) {
-    
-    if(n == 0) {
-        return 0;
-    }
-
-    sort(arr.begin(), arr.end());
-    vector<int> v;
-    int cnt = 1;
-
-    for(int i = 1; i < n; i++) {
-        if(arr[i] == arr[i-1]) {
-            continue;
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        
+        set<int> st;
+        for(auto it: nums) {
+            st.insert(it);
         }
-
-        if(arr[i] - arr[i-1] == 1) {
-            cnt++;
+        
+        int ans = 0;        
+        for(auto it: nums) {
+            if(!st.count(it-1)) {
+                int len = 1;
+                
+                while(st.count(it+len)) {
+                    len++;
+                }
+                
+                ans = max(ans, len);
+            }
         }
-        else{
-            v.push_back(cnt);
-            cnt = 1;
-        }
+        
+        return ans;
     }
-    v.push_back(cnt);
-    int ans = INT_MIN;
-    for(int i = 0; i < v.size(); i++) {
-        ans = max(ans,v[i]);
-    }
-    return ans;
-}
+};
