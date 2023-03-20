@@ -27,7 +27,7 @@ public:
         return solve(0, 0, text1, text2, dp);
         
         
-        /* // Approach 2: Tabulation
+        /*// Approach 2: Tabulation
         vector<vector<int>> dp(n+1, vector<int>(m+1, 0));
         
         for(int i = n-1; i >= 0; i--) {
@@ -44,7 +44,7 @@ public:
         return dp[0][0];
         */
         
-        /* // Approach 3: Space optimized
+        /*// Approach 3: Space optimized
         vector<int> next(m+1, 0), curr(m+1, 0);
         
         for(int i = n-1; i >= 0; i--) {
