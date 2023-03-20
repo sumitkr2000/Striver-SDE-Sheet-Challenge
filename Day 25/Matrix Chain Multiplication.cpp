@@ -1,4 +1,4 @@
-class Solution{
+class Solution {
 private:
     int solve(int i, int j, int arr[], vector<vector<int>> &dp) {
         
