@@ -7,7 +7,6 @@ public:
         vector<int> ans;
         
         while(true) {
-            
             if(temp != NULL) {
                 st.push(temp);
                 temp = temp -> left;
