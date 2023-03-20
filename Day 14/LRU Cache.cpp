@@ -10,8 +10,7 @@ public:
         Node(int k, int v) {
             key = k;
             val = v;
-            next = NULL;
-            prev = NULL;
+            next = prev = NULL;
         }
     };
     
@@ -47,7 +46,6 @@ public:
         if(mp.find(key) != mp.end()) {
             Node* temp = mp[key];
             int data = temp -> val;
-            mp.erase(key);
             deleteNode(temp);
             addNode(temp);
             mp[key] = head -> next;
@@ -59,11 +57,9 @@ public:
     void put(int key, int value) {
         if(mp.find(key) != mp.end()) {
             Node* temp = mp[key];
-            mp.erase(key);
             deleteNode(temp);
         }
         else if(mp.size() == size) {
-            mp.erase(tail -> prev -> key);
             deleteNode(tail -> prev);
         }
         
