@@ -1,11 +1,37 @@
-#include<algorithm>
-vector<int> kthSmallLarge(vector<int> &arr, int n, int k)
-{   
-    sort(arr.begin(), arr.end());
-    vector<int> ans;   
-    
-    ans.push_back(arr[k-1]);
-    ans.push_back(arr[n-k]);
-    
-    return ans;
-}
+// Kth Largest
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        
+        priority_queue<int, vector<int>, greater<int>> pq;
+        
+        for(auto it: nums) {
+            pq.push(it);
+            
+            if(pq.size() > k) {
+                pq.pop();
+            }
+        }
+        
+        return pq.top();
+    }
+};
+
+// Kth Smallest
+class Solution {
+public:
+    int findKthSmallest(vector<int>& nums, int k) {
+        
+        priority_queue<int> pq;
+        
+        for(auto it: nums) {
+            pq.push(it);
+            
+            if(pq.size() > k) {
+                pq.pop();
+            }
+        }
+        
+        return pq.top();
+    }
+};
