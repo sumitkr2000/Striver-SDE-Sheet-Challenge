@@ -1,9 +1,9 @@
 class MyQueue {
 public:
-    stack<int> st1;
-    stack<int> st2;
+    stack<int> st1, st2;
     
-    MyQueue() {    
+    MyQueue() {
+        
     }
     
     void push(int x) {
