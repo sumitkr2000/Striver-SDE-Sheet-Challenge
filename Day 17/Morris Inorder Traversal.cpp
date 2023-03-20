@@ -4,6 +4,7 @@ public:
         
         vector<int> ans;
         TreeNode* curr = root;
+        
         while(curr != NULL) {
             if(curr -> left) {
                 TreeNode* temp = curr -> left;
