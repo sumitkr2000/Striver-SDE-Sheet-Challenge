@@ -1,10 +1,10 @@
 class Solution {
 public:
-    vector<vector<int>> getTreeTraversal(BinaryTreeNode<int> *root){
+    vector<vector<int>> getTreeTraversal(TreeNode<int> *root){
 
         vector<int> in, pre, post;
         vector<vector<int>> ans;
-        stack<pair<BinaryTreeNode<int>*, int>> st;
+        stack<pair<TreeNode<int>*, int>> st;
         st.push({root, 1});
 
         if(root == NULL) {
