@@ -8,11 +8,11 @@ public:
     int myAtoi(string s) {
         
         int n = s.size();
-        int i = 0;
-        int sign = 1;
-        int ans = 0;
+        int i = 0, sign = 1, ans = 0;
         
-        while(i < n && s[i] == ' ') i++;
+        while(i < n && s[i] == ' ') {
+            i++;
+        }
         
         if(s[i] == '+') {
             i++;
@@ -27,7 +27,6 @@ public:
             int digit = s[i] - '0';
             
             if(ans > (INT_MAX - digit) / 10) {
-                // cout<<"came";
                 if(sign == 1) {
                     return INT_MAX;
                 }
@@ -39,10 +38,7 @@ public:
             ans = ans * 10 + digit;
             i++;
         }
-        if(ans != 0 && sign == -1) {
-            return -ans;
-        }
         
-        return ans;
+        return ans * sign;
     }
 };
