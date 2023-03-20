@@ -1,15 +1,21 @@
-#include<algorithm>
-int findDuplicate(vector<int> &arr, int n){
-	
-	sort(arr.begin(), arr.end());
-	
-	int ans = 0;
-	
-	for(int i = 0; i < n; i++) {
-		if(arr[i] == arr[i+1]) {
-			ans = arr[i];
-			break;
-		}
-	}
-	return ans;
-}
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        
+        int slow = nums[0], fast = nums[0];
+        
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        } while(slow != fast);
+        
+        fast = nums[0];
+        
+        while(slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+        
+        return slow; 
+    }
+};
