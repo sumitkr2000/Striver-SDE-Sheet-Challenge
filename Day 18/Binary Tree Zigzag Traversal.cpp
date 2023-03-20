@@ -1,25 +1,25 @@
-vector<int> zigZagTraversal(BinaryTreeNode<int> *root)
-{
+class Solution {
+public:
+vector<int> zigZagTraversal(TreeNode<int> *root) {
+    
     vector<int> ans;
     if(root == NULL) {
         return ans;
     }
 
-    queue<BinaryTreeNode<int>*> q;
+    queue<TreeNode<int>*> q;
     q.push(root);
-    bool LTR = true;
+    bool left = 1;
 
     while(!q.empty()) {
-
         int size = q.size();
         vector<int> temp(size);
 
         for(int i = 0; i < size; i++) {
-
-            BinaryTreeNode<int>* frontNode = q.front();
+            TreeNode<int>* frontNode = q.front();
             q.pop();
 
-            int index = LTR ? i : size - i - 1;
+            int index = left ? i : size - i - 1;
             temp[index] = frontNode -> data;
 
             if(frontNode -> left) {
@@ -30,8 +30,7 @@ vector<int> zigZagTraversal(BinaryTreeNode<int> *root)
             }
         }
 
-        LTR = !LTR;
-
+        left = !left;
         for(int i = 0; i < size; i++) {
             ans.push_back(temp[i]);
         }
