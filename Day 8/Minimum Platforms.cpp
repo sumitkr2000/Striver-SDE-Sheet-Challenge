@@ -1,7 +1,7 @@
-class Solution{
-    public:
-    int findPlatform(int arr[], int dep[], int n)
-    {
+class Solution {
+public:
+    int findPlatform(int arr[], int dep[], int n) {
+        
     	sort(arr, arr+n);
     	sort(dep, dep+n);
     	
