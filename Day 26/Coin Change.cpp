@@ -15,6 +15,7 @@ private:
         
         int notTake = solve(i-1, amount, coins, dp);
         int take = INT_MAX;
+        
         if(coins[i] <= amount) {
             take = 1 + solve(i, amount-coins[i], coins, dp);
         }
@@ -27,14 +28,13 @@ public:
         
         int n = coins.size();
         
-        //Approach 1: Memoization
+        // Approach 1: Memoization
         vector<vector<int>> dp(n, vector<int>(amount+1, -1));
         int ans = solve(n-1, amount, coins, dp);
         
         return ans == 1e9 ? -1 : ans;
         
-        
-        /*//Approach 2: Tabulation
+        /*// Approach 2: Tabulation
         vector<vector<int>> dp(n, vector<int>(amount+1, 1e9));
         
         for(int i = 0; i <= amount; i++) {
@@ -57,7 +57,7 @@ public:
         return dp[n-1][amount] == 1e9 ? -1 : dp[n-1][amount];
         */
         
-        /*//Approach 3: Space optimized
+        /*// Approach 3: Space optimized
         vector<int> prev(amount+1, 1e9), curr(amount+1, 1e9);
         
         for(int i = 0; i <= amount; i++) {
