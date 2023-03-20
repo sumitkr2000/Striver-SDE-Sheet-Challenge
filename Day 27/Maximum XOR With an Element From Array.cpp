@@ -11,6 +11,7 @@ private:
         
         for(int i = 31; i >= 0; i--) {
             int bit = (num >> i) & 1;
+            
             if(!curr -> children[bit]) {
                 curr -> children[bit] = new TrieNode();
             }
@@ -25,6 +26,7 @@ private:
         
         for(int i = 31; i >= 0; i--) {
             int bit = (num >> i) & 1;
+            
             if(curr && curr -> children[1-bit]) {
                 maxi = maxi | (1 << i);
                 curr = curr -> children[1-bit];
