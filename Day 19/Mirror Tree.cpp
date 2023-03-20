@@ -1,7 +1,7 @@
 class Solution {
   public:
     void mirror(Node* node) {
-        //base case
+        
         if(node == NULL) {
             return;
         }
