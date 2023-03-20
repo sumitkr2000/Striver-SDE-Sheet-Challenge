@@ -1,7 +1,7 @@
 class Solution {
 private:
     bool solve(TreeNode* root1, TreeNode* root2) {
-        //base case
+        
         if(root1 == NULL && root2 == NULL) {
             return true;
         }
