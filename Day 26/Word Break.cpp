@@ -1,5 +1,4 @@
-class Solution
-{
+class Solution {
 private:
     bool solve(int i, string &A, unordered_map<string, bool> &mp, vector<int> &dp) {
         
@@ -26,6 +25,7 @@ public:
     int wordBreak(string A, vector<string> &B) {
         
         unordered_map<string, bool> mp;
+        
         for(auto it: B) {
             mp[it] = true;
         }
