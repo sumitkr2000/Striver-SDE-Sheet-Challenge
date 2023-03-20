@@ -1,23 +1,25 @@
-void findPermutationsfun(string &s, int i, vector<string>& ans) {
-        
-        //base case
-        if(i >= s.length()) {
-            ans.push_back(s);
+class Solution {
+private:
+    void solve(int i, vector<int> &nums, vector<vector<int>> &ans) {        
+
+        if(i == nums.size()) {
+            ans.push_back(nums);
             return;
         }
         
-        for(int j = i; j<s.length(); j++) {
-            swap(s[i], s[j]);
-            findPermutationsfun(s, i+1, ans);
-            //backtrack
-            swap(s[i], s[j]);
+        for(int j = i; j < nums.size(); j++) {
+            swap(nums[i], nums[j]);
+            solve(i+1, nums, ans);
+            swap(nums[i], nums[j]);
         }
     }
-
-vector<string> findPermutations(string &s) {
     
-	vector<string> ans;
-    int i = 0;
-    findPermutationsfun(s, i, ans);
-    return ans;
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        
+        vector<vector<int>> ans;
+        solve(0, nums, ans);
+
+        return ans;
     }
+};
