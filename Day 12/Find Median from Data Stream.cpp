@@ -5,17 +5,18 @@ public:
     double median = 0;
     
     int getSize() {
-        if(maxHeap.size() == minHeap.size()) {
-            return 0;
-        }
-        else if(maxHeap.size() > minHeap.size()) {
+        if(maxHeap.size() > minHeap.size()) {
             return 1;
         }
-        return -1;
+        else if(maxHeap.size() < minHeap.size()) {
+            return -1;
+        }
+        else {
+            return 0;
+        }
     }
     
-    MedianFinder() {
-        
+    MedianFinder() {        
     }
     
     void addNum(int num) {
@@ -35,32 +36,33 @@ public:
             case 1:
                 if(num > median) {
                     minHeap.push(num);
-                    median = (minHeap.top() + maxHeap.top())/2.0;
+                    median = (maxHeap.top()+minHeap.top())/2.0;
                 }
                 else {
                     minHeap.push(maxHeap.top());
                     maxHeap.pop();
                     maxHeap.push(num);
-                    median = (minHeap.top() + maxHeap.top())/2.0;
+                    median = (maxHeap.top()+minHeap.top())/2.0;
                 }
                 break;
                 
             case -1:
                 if(num < median) {
                     maxHeap.push(num);
-                    median = (minHeap.top() + maxHeap.top())/2.0;
+                    median = (maxHeap.top()+minHeap.top())/2.0;
                 }
                 else {
                     maxHeap.push(minHeap.top());
                     minHeap.pop();
                     minHeap.push(num);
-                    median = (minHeap.top() + maxHeap.top())/2.0;
+                    median = (maxHeap.top()+minHeap.top())/2.0;
                 }
                 break;
         }
     }
     
     double findMedian() {
+        
         return median;
     }
 };
