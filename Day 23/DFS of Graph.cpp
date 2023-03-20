@@ -1,5 +1,5 @@
 class Solution {
-  private:
+private:
     void dfs(int node, vector<int> adj[], unordered_map<int, bool> &vis, vector<int> &ans) {
         
         vis[node] = true;
@@ -12,8 +12,7 @@ class Solution {
         }
     }
   
-  public:
-    // Function to return a list containing the DFS traversal of the graph.
+public:
     vector<int> dfsOfGraph(int V, vector<int> adj[]) {
         
         vector<int> ans;
