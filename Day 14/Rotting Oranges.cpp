@@ -22,12 +22,15 @@ public:
         
         while(!q.empty()) {
             int sz = q.size();
+            
             for(int i = 0; i < sz; i++) {
                 pair<int,int> p = q.front();
                 q.pop();
+                
                 for(int j = 0; j < 4; j++) {
                     int r = p.first + dir[j];
                     int c = p.second + dir[j+1];
+                    
                     if(r >= 0 && r < m && c >= 0 && c < n && grid[r][c] == 1) {
                         grid[r][c] = 2;
                         q.push({r, c});
@@ -40,7 +43,9 @@ public:
             }
         }
         
-        if(fresh != 0) return -1;
+        if(fresh != 0) {
+            return -1;
+        }
         return ans;
     }
 };
