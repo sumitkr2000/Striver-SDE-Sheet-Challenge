@@ -1,14 +1,14 @@
-class Solution
-{
-    private:
+class Solution {
+private:
     static bool comp(vector<int> &a, vector<int> &b) {
         return a[1] < b[1];
     }
     
-    public:
-    int maxMeetings(int start[], int end[], int n)
-    {
+public:
+    int maxMeetings(int start[], int end[], int n) {
+        
         vector<vector<int>> meeting(n);
+        
         for(int i = 0; i < n; i++) {
             meeting[i] = {start[i], end[i]};
         }
