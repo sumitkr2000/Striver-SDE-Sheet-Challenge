@@ -1,28 +1,32 @@
-#include<vector>
-bool checkPalindrome(vector<int> arr) {
-    
-    int n = arr.size();
-    int s = 0;
-    int e = n-1;
-    
-    while(s<=e) {
-        if(arr[s] != arr[e]) {
-            return false;
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        
+        ListNode *slow = head, *fast = head;
+        
+        while(fast -> next && fast -> next -> next) {
+            fast = fast-> next -> next;
+            slow = slow -> next;
         }
-        s++;
-        e--;
-    }
-    return true;
-}
+        
+        ListNode* temp = slow -> next;
+        ListNode *prev = NULL, *fwd = NULL;
+        
+        while(temp) {
+            fwd = temp -> next;
+            temp -> next = prev;
+            prev = temp;
+            temp = fwd;
+        }
 
-bool isPalindrome(LinkedListNode<int> *head) {
-   
-	vector<int> arr;        
-    LinkedListNode<int>* temp = head;
-
-    while(temp != NULL) {
-        arr.push_back(temp -> data);
-        temp = temp -> next;
+        slow = head;
+        while(prev) {
+            if(slow -> val != prev -> val) {
+                return false;
+            }
+            slow = slow -> next;
+            prev = prev -> next;
+        }
+        return true;
     }
-    return checkPalindrome(arr);
-}
+};
