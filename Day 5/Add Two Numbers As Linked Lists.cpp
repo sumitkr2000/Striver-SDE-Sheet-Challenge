@@ -1,58 +1,32 @@
-#include <bits/stdc++.h> 
-void insertAtTail(Node* &head, Node* &tail, int value) {
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         
-        Node* temp = new Node(value);
+        ListNode* head = new ListNode(-1);
+        ListNode* tail = head;
+            
+        int carry = 0;
         
-        if(head == NULL) {
-            head = temp;
-            tail = temp;
-            return;
+        while(l1 != NULL || l2 != NULL || carry != 0) {  
+            int sum = carry;
+            
+            if(l1 != NULL) {
+                sum += l1 -> val;
+                l1 = l1 -> next;
+            }
+            
+            if(l2 != NULL) {
+                sum += l2 -> val;
+                l2 = l2 -> next;
+            }
+            
+            int digit = sum%10;
+            carry = sum/10;
+            
+            tail -> next = new ListNode(digit);
+            tail = tail -> next;
         }
-        else{
-            tail -> next = temp;
-            tail = temp;
-        }
+
+        return head -> next;
     }
-    
-Node* add(Node* first, Node* second) {
-
-    Node* ansHead = NULL;
-    Node* ansTail = NULL;
-
-    int carry = 0;
-
-    while(first != NULL || second != NULL || carry != 0) {
-
-        int val1 = 0;
-        if(first != NULL) {
-            val1 = first -> data;
-        }
-
-        int val2 = 0;
-        if(second != NULL) {
-            val2 = second -> data;
-        }
-
-        int sum = carry + val1 + val2;
-
-        int digit = sum % 10;
-
-        insertAtTail(ansHead, ansTail, digit);
-
-        carry = sum / 10;
-
-        if(first != NULL) {
-            first = first -> next;
-        }
-        if(second != NULL) {
-            second = second -> next;
-        }
-    }
-    return ansHead;
-}
-
-Node *addTwoNumbers(Node *head1, Node *head2)
-{
-    Node* ans = add(head1, head2);       
-    return ans;
-}
+};
