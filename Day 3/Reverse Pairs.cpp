@@ -1,5 +1,5 @@
 class Solution {
-private:
+public:
     int merge(int s, int mid, int e, vector<int> &nums) {
         
         int cnt = 0;
