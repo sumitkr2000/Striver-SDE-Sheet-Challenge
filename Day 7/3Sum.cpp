@@ -1,40 +1,45 @@
-#include <bits/stdc++.h> 
-vector<vector<int>> findTriplets(vector<int>arr, int n, int K) {
-	
-   vector<vector<int>> ans;
-   sort(arr.begin(), arr.end());
-   int left, right ;
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ans;
 
-   for(int i = 0 ; i<n ; i++) {
-       left = i+1 ;
-       right = n-1;
-
-       while(left < right) {
-           if(arr[left]+arr[right]+arr[i] == K) {
-               ans.push_back({arr[i], arr[left], arr[right]});
-
-               int x = arr[left] ;
-               int y = arr[right] ;
-
-               while(left < right && arr[left] == x) {
-                   left++ ;
-               }
-
-                  while(left < right && arr[right] == y) {
-                   right-- ;
-               }
-           }
-           else if(arr[left]+arr[right]+arr[i] < K){
-               left++;
-           }
-           else {
-               right--;
-           }
-       }
-
-        while(i+1 < n && arr[i] == arr[i+1]) {
-           i++ ;
+        if(nums[0] > 0) {
+            return ans;
         }
-   }
-   return ans;
-}
+        
+        for(int i = 0; i < n; i++) {
+            if(nums[i] > 0) {
+                break;
+            }
+            if(i > 0 && nums[i] == nums[i-1]) {
+                continue;
+            }
+
+            int j = i+1, k = n-1;
+            while(j < k) {
+                if(nums[i] + nums[j] + nums[k] == 0) {
+                    ans.push_back({nums[i], nums[j], nums[k]});
+
+                    while(j < k && nums[j] == nums[j+1]) {
+                        j++;
+                    }
+                    while(j < k && nums[k] == nums[k-1]) {
+                        k--;
+                    }
+                    j++;
+                    k--;
+                }
+                else if(nums[i] + nums[j] + nums[k] > 0) {
+                    k--;
+                }
+                else {
+                    j++;
+                }
+            }
+        }
+        return ans;
+    }
+};
