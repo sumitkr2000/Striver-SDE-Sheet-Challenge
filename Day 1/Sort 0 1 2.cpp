@@ -1,30 +1,25 @@
-#include <bits/stdc++.h> 
-void sort012(int *arr, int n)
-{
-    int count0 = 0;
-	int count1 = 0;
-	int count2 = 0;
-	
-	for(int i = 0; i < n; i++) {
-		
-		if(arr[i] == 0) {
-			count0++;
-		}
-		else if(arr[i] == 1) {
-			count1++;
-		}
-		else{
-			count2++;
-		}
-	}
-	
-	for(int i = 0; i < count0; i++) {
-		arr[i] = 0;
-	}
-	for(int i = count0; i < count0+count1; i++) {
-		arr[i] = 1;
-	}
-	for(int i = count0+count1; i < n; i++) {
-		arr[i] = 2;
-	}
-}
+// Dutch National Flag Algorithm
+
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        
+        int n = nums.size();
+        int l = 0, m = 0, h = n-1;
+        
+        while(m <= h) {
+            if(nums[m] == 0) {
+                swap(nums[l], nums[m]);
+                l++;
+                m++;
+            }
+            else if(nums[m] == 1) {
+                m++;
+            }
+            else {
+                swap(nums[h], nums[m]);
+                h--;
+            }
+        }
+    }
+};
