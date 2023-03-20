@@ -1,27 +1,20 @@
-int lowestCommonAncestor(TreeNode<int> *root, int x, int y)
-{
-	if(root == NULL) {
-        return -1;
-    }
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        
+        if(root == NULL || root == p || root == q) {
+            return root;
+        }
 
-    if(root -> data == x || root -> data == y) {
-        return root -> data;
-    }
+        TreeNode* left = lowestCommonAncestor(root -> left, p, q);
+        TreeNode* right = lowestCommonAncestor(root -> right, p, q);
 
-    int leftAns = lowestCommonAncestor(root -> left, x, y);
-    int rightAns = lowestCommonAncestor(root -> right, x, y);
-
-    if(leftAns != -1 && rightAns != -1) {
-        return root -> data;
+        if(right == NULL) {
+            return left;
+        }
+        if(left == NULL) {
+            return right;
+        }
+        return root;
     }
-    if(leftAns == -1 && rightAns == -1) {
-        return -1;
-    }
-    if(leftAns != -1 && rightAns == -1) {
-        return leftAns;
-    }
-    if(leftAns == -1 && rightAns != -1) {
-        return rightAns;
-    }
-    return root -> data;
-}
+};
