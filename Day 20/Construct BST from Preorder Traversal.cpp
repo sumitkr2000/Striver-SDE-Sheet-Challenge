@@ -1,22 +1,23 @@
-#include<bits/stdc++.h>>
-TreeNode<int>* solve(vector<int> &preOrder, int &i, int maxi) {
-    //base case
-    if((i >= preOrder.size()) || (preOrder[i] > maxi)) {
-        return NULL;
+class Solution {
+private:
+    TreeNode* solve(int &i, vector<int> &pre, int maxi) {
+ 
+        if(i == pre.size() || pre[i] > maxi) {
+            return NULL;
+        }
+        
+        TreeNode* root = new TreeNode(pre[i++]);
+        
+        root -> left = solve(i, pre, root -> val);
+        root -> right = solve(i, pre, maxi);
+        
+        return root;
     }
-
-    TreeNode<int>* root = new TreeNode<int>(preOrder[i++]);
-
-    root -> left = solve(preOrder, i, root -> data);
-    root -> right = solve(preOrder, i , maxi);
-
-    return root;
-}
-
-TreeNode<int>* preOrderTree(vector<int> &preOrder){
     
-    int maxi = INT_MAX; 
-    int i = 0;
-
-    return solve(preOrder, i, maxi);  
-}
+public:
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+        
+        int i = 0;
+        return solve(i, preorder, INT_MAX);
+    }
+};
