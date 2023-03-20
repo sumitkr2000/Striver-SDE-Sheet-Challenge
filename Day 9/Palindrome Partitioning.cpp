@@ -13,7 +13,7 @@ private:
     }
     
     void solve(int i, string &s, vector<string> &op, vector<vector<string>> &ans) {
-        //base case
+        
         if(i == s.size()) {
             ans.push_back(op);
             return;
