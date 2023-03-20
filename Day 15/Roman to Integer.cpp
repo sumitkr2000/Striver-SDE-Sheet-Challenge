@@ -13,8 +13,7 @@ public:
         mp['D'] = 500;
         mp['M'] = 1000;
         
-        int i = 0;
-        int ans = 0;
+        int i = 0, ans = 0;
         
         while(i < n-1) {
             if(mp[s[i]] < mp[s[i+1]]) {
@@ -27,7 +26,7 @@ public:
             }
         }
         
-        if(i != n) {
+        if(i == n-1) {
             ans += mp[s[n-1]];
         }
         return ans;
