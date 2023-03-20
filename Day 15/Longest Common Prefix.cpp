@@ -1,12 +1,10 @@
 class TrieNode {
 public:
-    char data;
     int childCnt;
-    TrieNode* children[26];
     bool isTerminal;
+    TrieNode* children[26];
     
-    TrieNode(char ch) {
-        data = ch;
+    TrieNode() {
         for(int i = 0; i < 26; i++) {
             children[i] = NULL;
         }
@@ -15,67 +13,48 @@ public:
     }
 };
 
-class Trie {
-public:
-    TrieNode* root;
-    
-    Trie(char ch) {
-        root = new TrieNode(ch);
-    }
-    
-    void insertFxn(TrieNode* root, string word) {
-        if(word.size() == 0) {
-            root -> isTerminal = true;
-            return;
-        }
+class Solution {
+private:
+    void insert(string &word, TrieNode* root) {
         
-        int index = word[0]-'a';
-        TrieNode* child;
+        TrieNode* curr = root;
         
-        if(root -> children[index] != NULL) {
-            child = root -> children[index];
-        }
-        else {
-            child = new TrieNode(word[0]);
-            root -> children[index] = child;
-            root -> childCnt++;
-        }
-        
-        insertFxn(child, word.substr(1));
-    }
-    
-    void insert(string word) {
-        insertFxn(root, word);
-    }
-    
-    void solve(string word, string &ans) {
-        
-        for(int i = 0; i < word.size(); i++) {
-            if(root -> childCnt == 1) {
-                ans += word[i];
-                root = root -> children[word[i]-'a'];
+        for(auto &it: word) {
+            int ind = it - 'a';
+            
+            if(!curr -> children[ind]) {
+                curr -> children[ind] = new TrieNode();
+                curr -> childCnt++;
             }
-            else {
-                break;
+            curr = curr -> children[ind];
+        }
+        curr -> isTerminal = true;
+    }
+    
+    string getPrefix(string &word, TrieNode* root) {
+        
+        TrieNode* curr = root;
+        string ans = "";
+        
+        for(auto &it: word) {
+            if(curr -> childCnt != 1 || curr -> isTerminal) {
+                return ans;
             }
             
-            if(root -> isTerminal == true) {
-                break;
-            }
+            ans += it;
+            curr = curr -> children[it - 'a'];
         }
+        return ans;
     }
-};
-
-class Solution {
+    
 public:
     string longestCommonPrefix(vector<string>& strs) {
-        
+             
         //Approach 1: By sorting
         int n = strs.size();
         sort(strs.begin(), strs.end());
         
-        string first = strs[0];
-        string last = strs[n-1];
+        string first = strs[0], last = strs[n-1];
         string ans = "";
         
         for(int i = 0; i < first.size(); i++) {
@@ -85,20 +64,19 @@ public:
             ans += first[i];
         }
         
+        return ans;
+        
         /*//Approach 2: Using Trie
-        Trie* t = new Trie('\0');
+        TrieNode* root = new TrieNode();
         
         for(int i = 0; i < strs.size(); i++) {
             if(strs[i].size() == 0) {
                 return "";
             }
-            t-> insert(strs[i]);
+            insert(strs[i], root);
         }
         
-        string ans = "";
-        t->solve(strs[0], ans);
+        return getPrefix(strs[0], root);
         */
-        
-        return ans;
     }
 };
