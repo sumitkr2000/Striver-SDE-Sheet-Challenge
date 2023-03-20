@@ -29,12 +29,12 @@ public:
         
         int n = word1.size(), m = word2.size();
         
-        Approach 1: Memoization
+        // Approach 1: Memoization
         vector<vector<int>> dp(n, vector<int>(m, -1));
         return solve(n-1, m-1, word1, word2, dp);
         
         
-        /*//Approach 2: Tabulation
+        /* //Approach 2: Tabulation
         vector<vector<int>> dp(n+1, vector<int>(m+1, 0));
         
         for(int j = 0; j <= m; j++) {
@@ -61,7 +61,7 @@ public:
         return dp[n][m];
         */
         
-        /*//Approach 3: Space optimized
+        /* //Approach 3: Space optimized
         vector<int> prev(m+1, 0);
         
         for(int j = 0; j <= m; j++) {
