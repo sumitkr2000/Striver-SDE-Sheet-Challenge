@@ -1,94 +1,44 @@
-Node* getMid(Node* head) {
-	
-	Node* slow = head;
-	Node* fast = head -> child;
-	
-	while(fast != NULL && fast -> child != NULL) {
-		slow = slow -> child;
-		fast = fast -> child -> child;
-	}
-	return slow;
-}
+class Solution {
+public:
+	Node* mergeList(Node* l1, Node* l2) {
 
-Node* mergeList(Node* &left, Node* &right) {
-	
-	if(left == NULL) {
-		return right;
-	}
-	if(right == NULL) {
-		return left;
-	}
-	
-	Node* ans = new Node(-1);
-	Node* temp = ans;
-	
-	while(left != NULL && right != NULL) {
-		if(left -> data < right -> data) {
-			temp -> child = left;
-			temp = left;
-			left = left -> child;
+	    Node* dummy = new Node(-1);
+	    Node* temp = dummy;
+
+	    while(l1 && l2) {
+		if(l1 -> data < l2 -> data) {
+		    temp -> bottom = l1;
+		    temp = l1;
+		    l1 = l1 -> bottom;
 		}
-		else{
-			temp -> child = right;
-			temp = right;
-			right = right -> child;
+		else {
+		    temp -> bottom = l2;
+		    temp = l2;
+		    l2 = l2 -> bottom;
+		}
 	    }
-    }
-    while(left != NULL) {
-        temp -> child = left;
-        temp = left;
-        left = left -> child;
-    }
-    while(right != NULL) {
-        temp -> child = right;
-        temp = right;
-        right = right -> child;
-    }
-	ans = ans -> child;
-	return ans;
-}
 
-Node* mergeSort(Node* &head) {
-        
-    //base case
-    if(head == NULL || head -> child == NULL) {
-	     return head;
-    }
+	    if(l1 != NULL) {
+		temp -> bottom = l1;
+	    }
+	    else {
+		temp -> bottom = l2;
+	    }
 
-    Node* mid = getMid(head);
-
-	Node* left = head;
-	Node* right = mid -> child;
-	mid -> child = NULL;
-	
-	//recursive call
-	left = mergeSort(left);
-	right = mergeSort(right);
-	
-	Node* res = mergeList(left, right);
-	
-	return res;
-}
-
-Node* flattenLinkedList(Node* head) 
-{
-	
-	Node* prev = head;
-	Node* temp = prev;
-	Node* curr = prev -> next;
-	
-	while(curr != NULL) {
-		
-		while(temp -> child != NULL) {
-			temp = temp -> child;
-		}
-		temp -> child = prev -> next;
-		prev = curr;
-		curr = curr -> next;
+	    return dummy -> bottom;
 	}
-	prev -> next = prev -> child;
 	
-	Node* ans = mergeSort(head);
-	
-	return ans;
-}
+public:
+	Node *flatten(Node *root) {
+		
+	   if(root == NULL || root -> next == NULL) {
+		return root;
+	    }
+
+	    root -> next = flatten(root -> next);
+
+	    root = mergeList(root, root -> next);
+
+	    return root;
+	}
+};
