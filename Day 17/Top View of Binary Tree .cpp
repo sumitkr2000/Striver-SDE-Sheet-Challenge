@@ -1,8 +1,7 @@
-class Solution
-{
-    public:
-    vector<int> topView(Node *root)
-    {
+class Solution {
+public:
+    vector<int> topView(Node *root) {
+        
         vector<int> ans;
         if(root == NULL) {
             return ans;
@@ -11,10 +10,9 @@ class Solution
         map<int, int> mp;
         queue<pair <Node*, int> > q;
         
-        q.push(make_pair(root, 0));
+        q.push({root, 0});
         
         while(!q.empty()) {
-            
             pair<Node*, int> temp = q.front();
             q.pop();
             
@@ -33,8 +31,8 @@ class Solution
             }
         }
         
-        for(auto i: mp) {
-            ans.push_back(i.second);
+        for(auto it: mp) {
+            ans.push_back(it.second);
         }
         return ans;
     }
