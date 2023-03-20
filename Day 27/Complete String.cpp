@@ -1,4 +1,3 @@
-#include <bits/stdc++.h> 
 class TrieNode {
 public:
     TrieNode* children[26];
@@ -12,71 +11,59 @@ public:
     }
 };
 
-class Trie {
+class Solution {
 private:
-    TrieNode* root;
-public:
-    Trie() {
-        root = new TrieNode();
-    }
-    
-    void insertWord(int i, string &word, TrieNode* root) {
+    void insert(string &word, TrieNode* root) {
         
-        if(i == word.size()) {
-            root -> isTerminal = 1;
-            return;
+        TrieNode* curr = root;
+        
+        for(auto &it: word) {
+            int ind = it - 'a';
+            
+            if(!curr -> children[ind]) {
+                curr -> children[ind] = new TrieNode();
+            }
+            curr = curr -> children[ind];
         }
-        
-        int ind = word[i] - 'a';
-        TrieNode* child;
-        
-        if(root -> children[ind]) {
-            child = root -> children[ind];
-        }
-        else {
-            child = new TrieNode();
-            root -> children[ind] = child;
-        }
-        
-        insertWord(i+1, word, child);
-    }
-    
-    void insert(string &word) {
-        insertWord(0, word, root);
+        curr -> isTerminal = true;
     }
     
     bool isPresent(string &word) {
         
         TrieNode* curr = root;
+        
         for(int i = 0; i < word.size(); i++) {
             int ind = word[i] - 'a';
             curr = curr -> children[ind];
+            
             if(!curr -> isTerminal) {
                 return false;
             }
         }
         return true;
     }
-};
+    
+public:
+    string completeString(int n, vector<string> &a){
 
-string completeString(int n, vector<string> &a){
-    
-    Trie* t = new Trie();
-    
-    for(auto word: a) {
-        t -> insert(word);
-    }
-    
-    string ans = "";    
-    for(auto word: a) {
-        if(t -> isPresent(word)) {
-            if(word.size() > ans.size()) {
-                ans = word;
-            }
-            else if(word.size() == ans.size()) {
-                ans = min(ans, word);
+        TrieNode* root = new TrieNode();
+
+        for(auto word: a) {
+            insert(word, root);
+        }
+
+        string ans = "";
+        
+        for(auto word: a) {
+            if(isPresent(word)) {
+                if(word.size() > ans.size()) {
+                    ans = word;
+                }
+                else if(word.size() == ans.size()) {
+                    ans = min(ans, word);
+                }
             }
         }
+        return ans;
     }
-    return ans == "" ? "None" : ans;
-}
+};
