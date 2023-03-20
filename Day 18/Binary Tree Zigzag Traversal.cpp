@@ -1,13 +1,13 @@
 class Solution {
 public:
-    vector<int> zigZagTraversal(TreeNode<int> *root) {
+    vector<int> zigZagTraversal(TreeNode*nroot) {
 
         vector<int> ans;
         if(root == NULL) {
             return ans;
         }
 
-        queue<TreeNode<int>*> q;
+        queue<TreeNode*> q;
         q.push(root);
         bool left = 1;
 
@@ -16,7 +16,7 @@ public:
             vector<int> temp(size);
 
             for(int i = 0; i < size; i++) {
-                TreeNode<int>* frontNode = q.front();
+                TreeNode* frontNode = q.front();
                 q.pop();
 
                 int index = left ? i : size - i - 1;
