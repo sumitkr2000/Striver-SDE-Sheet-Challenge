@@ -3,15 +3,9 @@ public:
     TrieNode* children[2];
 };
 
-class Trie {
+class Solution {
 private:
-    TrieNode* root;
-public:
-    Trie() {
-        root = new TrieNode();
-    }
-    
-    void insert(int num) {
+    void insert(int num, TrieNode* root) {
         
         TrieNode* curr = root;
         
@@ -24,7 +18,7 @@ public:
         }
     }
     
-    int getMax(int num) {
+    int getMax(int num, TrieNode* root) {
         
         TrieNode* curr = root;
         int maxi = 0;
@@ -41,9 +35,7 @@ public:
         }
         return maxi;
     }
-};
-
-class Solution {
+    
 public:
     vector<int> maximizeXor(vector<int>& nums, vector<vector<int>>& queries) {
         
@@ -57,21 +49,19 @@ public:
         sort(q.begin(), q.end()); 
         sort(nums.begin(), nums.end());
         
-        Trie* t = new Trie();
+        TrieNode* root = new TrieNode();
         vector<int> ans(n);
         int j = 0;
         
         for(int i = 0; i < n; i++) {
-            int m = q[i][0];
-            int x = q[i][1];
-            int ind = q[i][2];
+            int m = q[i][0], x = q[i][1], ind = q[i][2];
             
             while(j < nums.size() && nums[j] <= m) {
-                t -> insert(nums[j]);
+                insert(nums[j], root);
                 j++;
             }
             
-            ans[ind] = j == 0 ? -1 : t -> getMax(x);
+            ans[ind] = j == 0 ? -1 : getMax(x, root);
         }
         return ans;
     }
