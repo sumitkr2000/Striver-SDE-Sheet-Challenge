@@ -3,20 +3,15 @@ public:
     TrieNode* children[2]; 
 };
 
-class Trie {
+class Solution {
 private:
-    TrieNode* root;    
-public:
-    Trie() {
-        root = new TrieNode();
-    }
-    
-    void insert(int num) {
+    void insert(int num, TrieNode* root) {
         
         TrieNode* curr = root;
         
         for(int i = 31; i >= 0; i--) {
             int bit = (num >> i) & 1;
+            
             if(!curr -> children[bit]) {
                 curr -> children[bit] = new TrieNode();
             }
@@ -24,7 +19,7 @@ public:
         }
     }
     
-    int getMax(int num) {
+    int getMax(int num, TrieNode* root) {
         
         TrieNode* curr = root;
         int maxi = 0;
@@ -42,19 +37,17 @@ public:
         }
         return maxi;
     }
-};
-
-class Solution {
+    
 public:
     int findMaximumXOR(vector<int>& nums) {
         
         int n = nums.size();
-        Trie* t = new Trie();
+        TrieNode* root = new TrieNode();
         int ans = INT_MIN;
         
         for(int i = n-1; i >= 0; i--) {
-            t -> insert(nums[i]);
-            ans = max(ans, t -> getMax(nums[i]));
+            insert(nums[i], root);
+            ans = max(ans, getMax(nums[i], root));
         }
         return ans;
     }
