@@ -1,16 +1,24 @@
-#include<map>
-int findMajorityElement(int arr[], int n) {
-    map<int, int> mp;
+// Boyer Moore Voting Algorithm
 
-    for(int i = 0; i < n; i++) {
-        mp[arr[i]]++;
-    }
-
-    for(auto i: mp) {
-        if(i.second > n/2) {
-            return i.first;
-            break;
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        
+        int cnt = 0;
+        int ans = 0;
+        
+        for(auto it: nums) {
+            if(cnt == 0) {
+                ans = it;
+            }
+            
+            if(it == ans) {
+                cnt++;
+            }
+            else {
+                cnt--;
+            }
         }
+        return ans;
     }
-    return -1;
-}
+};
