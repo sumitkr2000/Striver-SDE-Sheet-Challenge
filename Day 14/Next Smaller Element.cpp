@@ -1,6 +1,6 @@
 class Solution {
 public:
-	vector<int> mextSmaller(vector<int> &A) {
+	vector<int> nextSmaller(vector<int> &A) {
 
 	    int n = A.size();
 	    stack<int> st;
