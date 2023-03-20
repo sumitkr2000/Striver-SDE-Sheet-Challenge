@@ -1,49 +1,49 @@
 class Solution{
 private:
-    bool isPossible(int node, int col, vector<int> &arr, unordered_map<int, list<int>> &adjList) {
+    bool isPossible(int node, int col, vector<int> &color, vector<vector<int>> &g) {
         
-        for(auto it: adjList[node]) {
-            if(arr[it] == col) {
+        for(auto it: g[node]) {
+            if(color[it] == col) {
                 return false;
             }
         }
         return true;
     }
 
-    bool solve(int node, int m, int n, vector<int> &arr, unordered_map<int, list<int>> &adjList) {
-        //base case
+    bool solve(int node, int m, int n, vector<int> &color, vector<vector<int>> &g) {
+  
         if(node == n) {
             return true;
         }
         
         for(int col = 1; col <= m; col++) {
-            
-            if(isPossible(node, col, arr, adjList)) {
-                arr[node] = col;
-                if(solve(node+1, m, n, arr, adjList) == true) {
+            if(isPossible(node, col, color, g)) {
+                color[node] = col;
+                if(solve(node+1, m, n, color, g)) {
                     return true;
                 }
-                arr[node] = 0;
+                color[node] = 0;
             }
         }
         return false;
     }
     
 public:
+
     bool graphColoring(bool graph[101][101], int m, int n) {
         
-        unordered_map<int, list<int>> adjList;
+        vector<vector<int>> g(n);
         
         for(int i = 0; i < n; i++) {
            for(int j = 0; j < n; j++) {
                if(graph[i][j] == 1) {
-                   adjList[i].push_back(j);
-                   adjList[j].push_back(i);
+                   g[i].push_back(j);
+                   g[j].push_back(i);
                }
            }
         }
         
-        vector<int> arr(n, 0);
-        return solve(0, m, n, arr, adjList);
+        vector<int> color(n, 0);
+        return solve(0, m, n, color, g);
     }
 };
