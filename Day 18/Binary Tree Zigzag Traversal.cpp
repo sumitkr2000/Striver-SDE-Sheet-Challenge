@@ -1,6 +1,6 @@
 class Solution {
 public:
-    vector<int> zigZagTraversal(TreeNode*nroot) {
+    vector<int> zigZagTraversal(TreeNode* root) {
 
         vector<int> ans;
         if(root == NULL) {
