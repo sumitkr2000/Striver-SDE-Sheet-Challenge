@@ -3,23 +3,20 @@ private:
     int mod = 5381;
     bool isSubstr(string str, string pat) {
 
-        int n = str.size();
-        int m = pat.size();
-        int hp = 1;
-        int j = 0;
+        int n = str.size(), m = pat.size();
+        int j = 0, hp = 1;
         vector<int> ans;
 
         for(int i = 0; i < m; i++) {
             hp = (hp*26)%mod;
         }
 
-        int hash1 = 0;
-        int hash2 = 0;
+        int hash1 = 0, hash2 = 0;
+        
         for(int i = 0; i < m; i++) {
             hash1 = (hash1*26 + pat[i])%mod;
             hash2 = (hash2*26 + str[i])%mod;
         }
-
         
         for(int i = 0; i <= n-m; i++) {
             if(hash1 == hash2) {
