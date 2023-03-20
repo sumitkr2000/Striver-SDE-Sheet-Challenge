@@ -1,43 +1,27 @@
-Node* floydDetectCycle(Node* head) {
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        
+        if(head == NULL || head -> next == NULL) {
+            return NULL;
+        }
 
-    if(head == NULL) {
+        ListNode *slow = head, *fast = head;
+
+        while(fast && fast -> next) {
+            
+            slow = slow -> next;
+            fast = fast -> next -> next;
+
+            if(slow == fast) {
+                fast = head;
+                while(slow != fast) {
+                    slow = slow -> next;
+                    fast = fast -> next;
+                }
+                return slow;
+            }
+        }
         return NULL;
     }
-
-    Node* slow = head;
-    Node* fast = head;
-   
-    while(slow != NULL && fast != NULL) {
-
-        fast = fast -> next;
-        if(fast != NULL) {
-            fast = fast -> next;
-        }
-        slow = slow -> next;
-
-        if(slow == fast) {
-        return slow;
-        }
-    }
-    
-    return NULL;
-}
-
-Node *firstNode(Node *head)
-{
-    if(head == NULL) 
-    return NULL;
-
-    Node* temp = floydDetectCycle(head);
-	if(temp == NULL) {
-		return NULL;
-	}
-    Node* slow = head;
-
-    while(slow != temp) {
-        slow = slow -> next;
-        temp = temp -> next;
-    }
-
-    return slow;
-}
+};
