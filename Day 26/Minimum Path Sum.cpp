@@ -30,7 +30,7 @@ public:
         return solve(0, 0, grid, dp);
     
         
-        /*//Approach 2: Tabulation
+        /*// Approach 2: Tabulation
         vector<vector<int>> dp(n, vector<int>(m, 0));
         
         for(int i = n-1; i >= 0; i--) {
@@ -56,9 +56,8 @@ public:
         return dp[0][0];
         */
         
-        /*//Approach 3: Space optimized
-        vector<int> next(m, 0);
-        vector<int> curr(m, 0);
+        /*// Approach 3: Space optimized
+        vector<int> next(m, 0), curr(m, 0);
         
         for(int i = n-1; i >= 0; i--) {
             for(int j = m-1; j>= 0; j--) {
