@@ -1,4 +1,4 @@
-class Solution{
+class Solution {
 private:
     bool isPalindrome(int i, int j, string &str) {
         
@@ -23,6 +23,7 @@ private:
         }
         
         int mini = INT_MAX;
+        
         for(int k = i; k < str.size(); k++) {
             if(isPalindrome(i, k, str)) {
                 int cuts = 1 + solve(k+1, str, dp);
@@ -33,8 +34,8 @@ private:
     }
 
 public:
-    int palindromicPartition(string str)
-    {
+    int palindromicPartition(string str) {
+        
         int n = str.size();
         vector<int> dp(n, -1);
         return solve(0, str, dp)-1;
