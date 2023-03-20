@@ -1,26 +1,26 @@
 class Solution {
 private:
-    bool bfsCycleDetection(int node, unordered_map<int, list<int>> &adjList, unordered_map<int, bool> &visited) {
-
-        unordered_map<int, int> parent;
+    bool bfsCycleDetection(int node, vector<vector<int>> &adjList, vector<bool> &vis) {
+        
+        vector<int> par(vis.size());
         queue<int> q;
         
         q.push(node);
-        visited[node] = 1;
-        parent[node] = -1;
+        vis[node] = 1;
+        par[node] = -1;
 
         while(!q.empty()) {
             int front = q.front();
             q.pop();
 
             for(auto it: adjList[front]) {
-                if(visited[it] && it != parent[front]) {
+                if(vis[it] && it != par[front]) {
                     return true;
                 }            
-                else if(!visited[it]){
+                else if(!vis[it]){
                     q.push(it);
-                    visited[it] = 1;
-                    parent[it] = front; 
+                    vis[it] = 1;
+                    par[it] = front; 
                 }
             }
         }
@@ -30,21 +30,18 @@ private:
 public:
     bool cycleDetection (vector<vector<int>>& edges, int n, int m) {
         
-        unordered_map<int, list<int>> adjList;
+        vector<vector<int>> adjList(n+1);
         
-        for(int i = 0; i < m; i++) {        
-            int u = edges[i][0];
-            int v = edges[i][1];
-
-            adjList[u].push_back(v);
-            adjList[v].push_back(u);
+        for(auto &it: edges) {
+            adjList[it[0]].push_back(it[1);
+            adjList[it[1].push_back(it[0]);
         }
 
-        unordered_map<int, bool> visited;
+        vector<bool> vis(n+1, 0);
         
         for(int i = 1; i <= n; i++) {
-            if(!visited[i]) {
-                if(bfsCycleDetection(i, adjList, visited)) {
+            if(!vis[i]) {
+                if(bfsCycleDetection(i, adjList, vis)) {
                     return true;
                 }
             }
