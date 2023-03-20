@@ -10,7 +10,6 @@ public:
         }
         
         while(power) {
-            
             if(power%2 == 0) {
                 x *= x;
                 power /= 2;
