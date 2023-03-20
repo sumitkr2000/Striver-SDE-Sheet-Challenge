@@ -32,6 +32,7 @@ vector<vector<int>> getTreeTraversal(BinaryTreeNode<int> *root){
             st.pop();
         }
     }
+    
     ans.push_back(in);
     ans.push_back(pre);
     ans.push_back(post);
