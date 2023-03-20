@@ -1,65 +1,61 @@
-bool isSafe(int row, int col, vector<vector<int>> &board, int n) {
-
-    int x = row, y = col;
-
-    //check for left columns in same row
-    while(y>=0) {
-        if(board[x][y] == 1) return false;
-        y--;
-    }
-
-    //check for upper diagonal
-    x = row, y = col;
-    while(x>=0 && y>= 0) {
-        if(board[x][y] == 1) return false;
-        x--;
-        y--;
-    }
-
-    //check for lower diagonal
-    x = row, y = col;
-    while(x<n && y>=0) {
-        if(board[x][y] == 1) return false;
-        x++;
-        y--;
-    }
-    return true;
-}
-
-void addSoln(vector<vector<int>> &board, vector<vector<int>> &ans, int n) {
-    
-    vector<int> temp;
-    
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            temp.push_back(board[i][j]); 
+class Solution {
+private:
+    bool isSafe(int row, int col, vector<string> &board, int n) {
+        
+        int x = row, y = col;
+        
+        //check for left columns in same row
+        while(y >= 0) {
+            if(board[x][y] == 'Q') return false;
+            y--;
         }
+        
+        //check for upper diagonal
+        y = col;
+        while(x >= 0 && y >= 0) {
+            if(board[x][y] == 'Q') return false;
+            x--;
+            y--;
+        }
+        
+        //check for lower diagonal
+        x = row, y = col;
+        while(x < n && y >= 0) {
+            if(board[x][y] == 'Q') return false;
+            x++;
+            y--;
+        }
+        return true;
     }
-    ans.push_back(temp);
-}
-
-void solve(int col, vector<vector<int>> &ans, vector<vector<int>> &board, int n) {
-        //base case
+    
+    void solve(int col, vector<vector<string>> &ans, vector<string> &board, int n) {
+        
         if(col == n) {
-            addSoln(board, ans, n);
+            ans.push_back(board);
             return;
         }
         
-        //recursion
         for(int row = 0; row < n; row++) {
             if(isSafe(row, col, board, n)) {
-                board[row][col] = 1;
+                board[row][col] = 'Q';
                 solve(col+1, ans, board, n);
-                board[row][col] = 0;
+                board[row][col] = '.';
             }
         }
     }
-
-vector<vector<int>> solveNQueens(int n) {
     
-        vector<vector<int>> ans;
-        vector<vector<int>> board(n, vector<int>(n, 0));
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        
+        vector<vector<string>> ans;
+        vector<string> board(n);
+        string s(n, '.');
+        
+        for(int i = 0; i < n; i++) {
+            board[i] = s;
+        }
         
         solve(0, ans, board, n);
         return ans;
-}
+    }
+};
