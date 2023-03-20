@@ -23,12 +23,12 @@ private:
 public:
     int knapSack(int W, int wt[], int val[], int n) {
         
-        //Approach 1: Memoization
+        // Approach 1: Memoization
         vector<vector<int>> dp(n, vector<int>(W+1, -1));
         return solve(0, W, n, wt, val, dp);
         
         
-        /*//Approach 2: Tabulation
+        /*// Approach 2: Tabulation
         vector<vector<int>> dp(n+1, vector<int> (W+1, 0));
         
         for(int i = n-1; i >= 0; i--) {
@@ -46,7 +46,7 @@ public:
         return dp[0][W];
         */
         
-        /*//Approach 3: Space optimized
+        /*// Approach 3: Space optimized
         vector<int> next(W+1, 0), curr(W+1, 0);
         
         for(int i = n-1; i >= 0; i--) {
