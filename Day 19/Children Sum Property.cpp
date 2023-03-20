@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void changeTree(TreeNode<int>* root) {
+    void changeTree(TreeNode* root) {
 
         if(root == NULL) {
             return;
