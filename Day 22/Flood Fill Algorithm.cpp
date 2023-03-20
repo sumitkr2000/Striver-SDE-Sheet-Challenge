@@ -1,24 +1,30 @@
-void solve(vector<vector<int>>& image, int n, int m, int i, int j, int temp, int newColor) {        
-    //base case
-    if(i < 0 || i >=n || j < 0 || j >=m || image[i][j] == newColor || image[i][j] != temp) {
-        return;
+class Solution {
+private:
+    void solve(int i, int j, vector<vector<int>> &image, int startColor, int color) {
+        
+        if(i < 0 || i >= image.size() || j < 0 || j >= image[0].size() || 
+           image[i][j] != startColor) {
+            return;
+        }
+        
+        image[i][j] = color;
+        
+        solve(i+1, j, image, startColor, color);
+        solve(i-1, j, image, startColor, color);
+        solve(i, j+1, image, startColor, color);
+        solve(i, j-1, image, startColor, color);
     }
-
-    image[i][j] = newColor;
-
-    //recursive call
-    solve(image, n, m, i-1, j, temp, newColor);
-    solve(image, n, m, i+1, j, temp, newColor);
-    solve(image, n, m, i, j-1, temp, newColor);
-    solve(image, n, m, i, j+1, temp, newColor);
-}
-
-vector<vector<int>> floodFill(vector<vector<int>> &image, int x, int y, int newColor)
-{
-    int n = image.size();
-    int m = image[0].size();
-    int temp = image[x][y];
-
-    solve(image, n, m, x, y, temp, newColor);
-    return image;
-}
+    
+public:
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        
+        int startColor = image[sr][sc];
+        
+        if(startColor == color) {
+            return image;
+        }
+        
+        solve(sr, sc, image, startColor, color);        
+        return image;
+    }
+};
