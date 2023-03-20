@@ -9,12 +9,13 @@ private:
             while(j <= e && nums[i] > 2LL*nums[j]) {
                 j++;
             }
-            cnt += (j - (mid+1));
+            cnt += (j - mid + 1);
         }
         
         vector<int> temp;
         int i = s;
         j = mid+1;
+        
         while(i <= mid && j <= e) {
             if(nums[i] < nums[j]) {
                 temp.push_back(nums[i++]);
