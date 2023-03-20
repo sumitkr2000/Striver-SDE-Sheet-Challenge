@@ -1,7 +1,7 @@
 class Solution {
 private:
     TreeNode* solve(int s, int e, vector<int> &nums) {
-        //base case
+        
         if(s > e ) {
             return NULL;
         }
