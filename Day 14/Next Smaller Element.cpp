@@ -1,18 +1,18 @@
-#include<stack>
-vector<int> nextSmallerElement(vector<int> &arr, int n)
-{
-    stack<int> s;
-	s.push(-1);
-	vector<int> ans(n);
-	
-	for(int i = n-1; i >= 0; i--) {
-		int curr = arr[i];
-		
-		while(s.top() >= curr) {
-			s.pop();
+class Solution {
+public:
+	vector<int> mextSmaller(vector<int> &A) {
+
+	    int n = A.size();
+	    stack<int> st;
+	    vector<int> ans(n, -1);
+
+	    for(int i = 0; i < n; i++) {
+		while(!st.empty() && A[i] < A[st.top()]) {
+		    ans[st.top()] = A[i];
+		    st.pop();
 		}
-		ans[i] = s.top();
-		s.push(curr);
+		st.push(i);
+	    }
+	    return ans;
 	}
-	return ans;
-}
+};
