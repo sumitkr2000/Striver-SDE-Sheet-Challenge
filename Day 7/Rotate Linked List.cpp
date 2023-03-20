@@ -1,29 +1,29 @@
-#include <bits/stdc++.h> 
-Node *rotate(Node *head, int k) {
-     
-    if(head == NULL || head -> next == NULL) return head;
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
         
-    vector<int> v;
-    Node* temp = head;
-
-    while(temp != NULL) {
-        v.push_back(temp->data);
-        temp = temp -> next;
+        if(head == NULL || head -> next == NULL) return head;
+        
+        ListNode* temp = head;
+        int len = 1;
+        
+        while(temp -> next != NULL) {
+            temp = temp -> next;
+            len++;
+        }
+        temp -> next = head;
+        
+        k = len - (k % len);
+        temp = head;
+        
+        while(k > 1) {
+            temp = temp -> next;
+            k--;
+        }
+        
+        head = temp -> next;
+        temp -> next = NULL;
+        
+        return head;
     }
-
-    int n = v.size();
-    vector<int> copy(n);
-
-    for(int i = 0; i < n; i++) {
-        copy[(i + k) % n] = v[i];
-    }
-
-    int i = 0;
-    temp = head;
-    while(temp != NULL) {
-        temp -> data = copy[i];
-        temp = temp -> next;
-        i++;
-    }
-    return head;
-}
+};
