@@ -1,24 +1,26 @@
-int solve(TreeNode<int>* root, int &k) {
-    //base case
-    if(root == NULL) {
-        return -1;
+class Solution {
+private:
+    void solve(TreeNode* root, int &k, int &ans) {
+
+        if(root == NULL) {
+            return;
+        }
+        
+        solve(root -> left, k, ans);
+        k--;
+        if(k == 0) {
+            ans = root -> val;
+            return;
+        }
+        
+        solve(root -> right, k, ans);
     }
-
-    int right = solve(root -> right, k);
-    if(right != -1) {
-        return right;
+    
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        
+        int ans;
+        solve(root, k, ans);
+        return ans;
     }
-
-    k--;
-    if(k == 0) {
-        return root -> data;
-    }
-
-    return solve(root -> left, k);  
-}
-
-int KthLargestNumber(TreeNode<int>* root, int k) 
-{
-    int ans = solve(root, k);   
-    return ans;
-}
+};
