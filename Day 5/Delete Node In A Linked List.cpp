@@ -1,4 +1,8 @@
-void deleteNode(LinkedListNode<int> * node) {
-    node -> data = node -> next -> data;
-    node -> next = node -> next -> next;
-}
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        
+        node -> val = node -> next -> val;
+        node -> next = node -> next -> next;
+    }
+};
