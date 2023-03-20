@@ -1,65 +1,68 @@
-#include<queue>
-int signum(int num1, int num2) {
-    if(num1 == num2) {
-        return 0;
-    }
-    else if(num1 > num2) {
-        return 1;
-    }
-    else{
-        return -1;
-    }
-}
-
-void getMedian(int element, priority_queue<int> &maxHeap, priority_queue<int, vector<int>, greater<int>> &minHeap, int &median) {
+class MedianFinder {
+public:
+    priority_queue<int> maxHeap;
+    priority_queue<int, vector<int>, greater<int>> minHeap;
+    double median = 0;
     
-    switch(signum(maxHeap.size(), minHeap.size())) {
-        case 0: if(element > median) {
-                    minHeap.push(element);
+    int getSize() {
+        if(maxHeap.size() > minHeap.size()) {
+            return 1;
+        }
+        else if(maxHeap.size() < minHeap.size()) {
+            return -1;
+        }
+        else {
+            return 0;
+        }
+    }
+    
+    MedianFinder() {        
+    }
+    
+    void addNum(int num) {
+        
+        switch(getSize()) {
+            case 0:
+                if(num > median) {
+                    minHeap.push(num);
                     median = minHeap.top();
                 }
-                else{
-                    maxHeap.push(element);
+                else {
+                    maxHeap.push(num);
                     median = maxHeap.top();
                 }
                 break;
-            
-         case 1: if(element > median) {
-                     minHeap.push(element);
-                     median = (minHeap.top() + maxHeap.top())/2;
-                 }
-                 else{
-                     minHeap.push(maxHeap.top());
-                     maxHeap.pop();
-                     maxHeap.push(element);
-                     median = (minHeap.top() + maxHeap.top())/2;
-                 }
-                 break;
-            
-         case -1: if(element > median) {
-                      maxHeap.push(minHeap.top());
-                      minHeap.pop();
-                      minHeap.push(element);
-                      median = (minHeap.top() + maxHeap.top())/2;
-                   }
-                  else{
-                      maxHeap.push(element);
-                      median = (minHeap.top() + maxHeap.top())/2;
-                  }
-                  break;
+                
+            case 1:
+                if(num > median) {
+                    minHeap.push(num);
+                    median = (maxHeap.top()+minHeap.top())/2.0;
+                }
+                else {
+                    minHeap.push(maxHeap.top());
+                    maxHeap.pop();
+                    maxHeap.push(num);
+                    median = (maxHeap.top()+minHeap.top())/2.0;
+                }
+                break;
+                
+            case -1:
+                if(num < median) {
+                    maxHeap.push(num);
+                    median = (maxHeap.top()+minHeap.top())/2.0;
+                }
+                else {
+                    maxHeap.push(minHeap.top());
+                    minHeap.pop();
+                    minHeap.push(num);
+                    median = (maxHeap.top()+minHeap.top())/2.0;
+                }
+                break;
+        }
     }
-}
-
-vector<int> findMedian(vector<int> &arr, int n){
     
-    vector<int> ans;
-    priority_queue<int> maxHeap;
-    priority_queue<int, vector<int>, greater<int>> minHeap;
-    int median = 0;
-    
-    for(int i = 0; i < n; i++) {
-        getMedian(arr[i], maxHeap, minHeap, median);
-        ans.push_back(median);
-    }    
-    return ans;
-}
+    double findMedian() {
+        
+        return median;
+    }
+};
