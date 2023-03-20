@@ -1,50 +1,33 @@
-int getpivot(int* arr, int n) {
-    
-    int start = 0;
-    int end = n-1;
-    int mid = start + (end - start)/2;
-    
-    while(start<end) {
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
         
-        if(arr[0]<=arr[mid]) {
-            start = mid + 1;
-        }
-        else{
-            end = mid;
-        }
-        mid = start + (end - start)/2;
-    }
-    return start;
-}
-int binarysearch(int* arr, int s, int e, int k) {
-    
-    int start = s;
-    int end = e;
-    int mid = start + (end - start)/2;
-    
-    while(start <= end) {
+        int s = 0, e = nums.size()-1;
         
-        if(k == arr[mid]) {
-            return mid;
+        while(s <= e) {
+            int mid = s + (e-s)/2;
+            
+            if(nums[mid] == target) {
+                return mid;
+            }
+            
+            if(nums[mid] >= nums[s]) {
+                if(target >= nums[s] && target <= nums[mid]) {
+                    e = mid - 1;
+                }
+                else {
+                    s = mid + 1;
+                }
+            }
+            else {
+                if(target >= nums[mid] && target <= nums[e]) {
+                    s = mid + 1;
+                }
+                else {
+                    e = mid - 1;
+                }
+            }
         }
-        else if(k > arr[mid]) {
-            start = mid + 1;
-        }
-        else{
-            end = mid - 1;
-        }
-        mid = start + (end - start)/2;
+        return -1;
     }
-    return -1;
-}
-
-int search(int* arr, int n, int key) {
-	
-    int pivot = getpivot(arr,n);
-    if(key >= arr[pivot] && key <= arr[n-1]) {
-        return binarysearch(arr, pivot, n-1, key);
-    }
-    else{
-        return binarysearch(arr, 0, pivot, key);
-    }
-}
+};
