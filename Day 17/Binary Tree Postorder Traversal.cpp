@@ -8,9 +8,9 @@ public:
         }
         
         stack<TreeNode*> st;
-        st.push(root);  
+        st.push(root);
+        
         while(!st.empty()) {
-            
             TreeNode* curr = st.top();
             st.pop();
             ans.push_back(curr -> val);
